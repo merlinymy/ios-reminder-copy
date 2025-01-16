@@ -13,7 +13,7 @@
 }
 
 body {
-    background-color: var(--background0);
+    background-color: black;
     height: 100vh;
     overflow: hidden;
 }
@@ -33,9 +33,11 @@ button {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 98vh;
+    height: 100vh;
     padding: 0.75rem;
-
+    transition: all 300ms;
+    /* border-radius: 10px; */
+    background-color: var(--background0);
 }
 
 span.pending {
@@ -68,6 +70,7 @@ span.search {
 
 .main>.top-tool {
     padding: 0rem;
+    z-index: 0;
 }
 
 .white-bg {
@@ -76,7 +79,7 @@ span.search {
 }
 
 .bottom-border {
-    border-bottom: 0.1px solid grey;
+    border-bottom: 0.1px solid rgb(189, 189, 189);
 }
 
 .search-input {

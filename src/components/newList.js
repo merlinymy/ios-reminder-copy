@@ -39,6 +39,7 @@ export default (function newList() {
     const cancelBtn = wrapper.querySelector('button.cancel');
     const bigIconDiv = wrapper.querySelector('.big-icon');
     const bigIconSpan = document.createElement('span');
+    const main = document.querySelector('.main');
 
     doneBtn.disabled = true;
 
@@ -144,21 +145,31 @@ export default (function newList() {
         }
     });
 
-    
-    cancelBtn.addEventListener('click', (e)=>{
-        e.preventDefault();
+    const playAnimation = function () {
         requestAnimationFrame(()=>{
             wrapper.style.transform = `translateY(10%)`;
+            main.style.transform = `scale(1)`;
+            main.style.borderRadius = '0px';
         });
         const removeWrapper = function() {
             wrapper.parentElement.removeChild(wrapper);
         };
+        
         setTimeout(removeWrapper, 300);
+    }
+
+    
+    cancelBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        playAnimation();
         // wrapper.addEventListener('transitionend', removeWrapper);
     });
+
     doneBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        playAnimation();
         createNewList(selectedIcon, selectedColor, newListName);
+
     });
     
     return wrapper;
