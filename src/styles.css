@@ -1,6 +1,8 @@
 :root {
     --blue-theme: rgb(0, 102, 255);
-    --background0: rgb(237, 240, 242);
+    --background0: rgb(241, 242, 249);
+    --bg-input: rgb(233, 229, 229);
+
 }
 
 * {
@@ -13,6 +15,7 @@
 body {
     background-color: var(--background0);
     height: 100vh;
+    overflow: hidden;
 }
 
 button {
@@ -51,13 +54,34 @@ span.search {
 
 .top-tool {
     display: flex;
+    position: sticky;
+    top: 0px;
     justify-content: flex-end;
-    margin-bottom: 1vh;
+    z-index: 12;
+    height: 3rem;
+    align-items: center;
+    border-bottom: 0.1px solid transparent;
+    background-color: var(--background0);
+    transition: all 300ms;
+    padding: 0rem 1rem 0rem 1rem;
+}
+
+.main>.top-tool {
+    padding: 0rem;
+}
+
+.white-bg {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.bottom-border {
+    border-bottom: 0.1px solid grey;
 }
 
 .search-input {
     border: none;
-    background-color: rgb(210, 210, 210);
+    background-color: var(--bg-input);
     width: 80%;
     height: 4vh;
     padding-top: 0.25rem;
@@ -80,7 +104,7 @@ span.search {
     display: flex;
     /* justify-content: center; */
     /* align-items: center; */
-    background-color: rgb(210, 210, 210);
+    background-color: var(--bg-input);
     /* height: 1.75rem; */
     border-radius: 8px;
 }
@@ -109,6 +133,10 @@ span.today {
 
 .card-contents {
     padding: 0.25rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
 }
 
 .icon-and-count {
@@ -179,15 +207,9 @@ span.today {
     z-index: 10;
     height: 95vh;
     border-radius: 15px 15px 0px 0px;
-    padding: 1rem;
     box-shadow: 0px -1px 10px grey;
     transition: all 300ms;
-}
-
-.new-list-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    overflow: scroll;
 }
 
 .color-span-wrap, .icon-span-wrap {
@@ -237,4 +259,43 @@ span.color, span.icon {
 
 span.icon {
     background-color: rgb(240, 238, 238);
+}
+
+button:disabled {
+    color: grey;
+}
+
+span.big-icon {
+    color: white;
+    font-size: 4rem;
+    padding: 0.5rem;
+}
+
+.init {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+#list-name {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--bg-input);
+    /* height: 2rem; */
+    font-size: 1.85rem;
+    padding: 0.35rem 0rem 0.35rem 0rem;
+    border: none;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.big-icon {
+    margin-top: 0.15rem;
+}
+
+span.new-list {
+    font-size: 1.55rem;
 }

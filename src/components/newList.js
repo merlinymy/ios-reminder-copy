@@ -1,4 +1,5 @@
 import { iconList, colorList } from "../util";
+import { createNewList } from "../applicationLogic/addNewList";
 
 export default (function newList() {
     // TODO: add touch ctrl
@@ -7,37 +8,45 @@ export default (function newList() {
     const content = 
     `
     <div class="new-list-card">
-    <div class="top-tool space-between">
-        <button class="cancel">Cancel</button>
-        <span>New List</span>
-        <button class="done">Done</button>
-    </div>
-    <div class="init card-wrap">
-        <div class="big-icon">
-            <span class="material-symbols-outlined">
-                list
-            </span>
+        <div class="top-tool space-between">
+            <button class="cancel">Cancel</button>
+            <span class="new-list">New List</span>
+            <button class="done">Done</button>
         </div>
-        <input type="text" placeholder="List Name">
-    </div>
-    <div class="wrap-center">
-        <div class="color-wrap card-wrap"></div>
-    </div>
+        <div class="card-contents">
+            <div class="init card-wrap">
+                <div class="big-icon">
+
+                </div>
+                <input id="list-name" type="text" placeholder="List Name">
+            </div>
+
+            <div class="wrap-center">
+                <div class="color-wrap card-wrap"></div>
+            </div>
+            
+            <div class="wrap-center icon-wrap-center">
+                <div class="icons-wrap card-wrap"></div>
+            </div>
+        <div/>
     
-    <div class="wrap-center">
-        <div class="icons-wrap card-wrap"></div>
     </div>
-</div>
     `
     wrapper.innerHTML = content;
-    // wrapper.style.height = `0vh`;
     wrapper.style.transform = `translateY(10%)`;
 
+    const doneBtn = wrapper.querySelector('button.done');
+    const cancelBtn = wrapper.querySelector('button.cancel');
+    const bigIconDiv = wrapper.querySelector('.big-icon');
+    const bigIconSpan = document.createElement('span');
+
+    doneBtn.disabled = true;
+
     const colorDiv = wrapper.querySelector('.color-wrap');
-    let selectedColor;
+    let selectedColor = 'royalblue';
     colorList.forEach((color) => {
         const colorSpanWrap = document.createElement('span');
-        if (color === 'blue') {
+        if (color === 'royalblue') {
             colorSpanWrap.classList.add('color-span-wrap', 'circle-select');
         } else {
             colorSpanWrap.classList.add('color-span-wrap', 'circle-not-select');
@@ -61,16 +70,16 @@ export default (function newList() {
                     child.classList.remove('circle-select');
                 }
             })
+            bigIconSpan.style.backgroundColor = `${selectedColor}`;
+
         })
 
         colorSpanWrap.append(colorSpan);
         colorDiv.appendChild(colorSpanWrap);
     })
 
-
     const iconDiv = wrapper.querySelector('.icons-wrap');
-    let selectedIcon;
-
+    let selectedIcon = 'list';
     iconList.forEach((icon)=> {
         const iconSpanWrap = document.createElement('span');
 
@@ -78,6 +87,7 @@ export default (function newList() {
             iconSpanWrap.classList.add('icon-span-wrap', 'circle-select');
         } else {
             iconSpanWrap.classList.add('icon-span-wrap', 'circle-not-select');
+
         }
 
         const iconSpan = document.createElement('span');
@@ -96,17 +106,46 @@ export default (function newList() {
                     child.classList.add('circle-not-select');
                     child.classList.remove('circle-select');
                 }
-            })
-        })
+            });
+            bigIconSpan.textContent = `${selectedIcon}`;
 
+        });
         iconSpanWrap.append(iconSpan);
         iconDiv.appendChild(iconSpanWrap);
     })
 
+    const nameInput = wrapper.querySelector('#list-name');
+    let newListName;
+    nameInput.addEventListener('input', (event) => {
+        event.preventDefault();
+        if (event.target.value) {
+            doneBtn.disabled = false;
+        }
+        newListName = event.target.value;
+    });
 
+
+    bigIconSpan.classList.add('circle','big-icon','material-symbols-outlined');
+    bigIconSpan.textContent = `${selectedIcon}`;
+    bigIconSpan.style.backgroundColor = `${selectedColor}`;
+    bigIconDiv.append(bigIconSpan);
+
+    const topTool = wrapper.querySelector('.top-tool');
+    const init = wrapper.querySelector('.init');
+    wrapper.addEventListener('scroll', (event) => {
+        let topToolBtm = topTool.getBoundingClientRect().bottom;
+        let initTop = init.getBoundingClientRect().top;
+        
+        if (initTop <= topToolBtm) {
+            topTool.classList.add('white-bg', 'bottom-border');
+        } else {
+            topTool.classList.remove('white-bg', 'bottom-border');
+
+        }
+    });
 
     
-    wrapper.querySelector('button.cancel').addEventListener('click', (e)=>{
+    cancelBtn.addEventListener('click', (e)=>{
         e.preventDefault();
         requestAnimationFrame(()=>{
             wrapper.style.transform = `translateY(10%)`;
@@ -117,8 +156,10 @@ export default (function newList() {
         setTimeout(removeWrapper, 300);
         // wrapper.addEventListener('transitionend', removeWrapper);
     });
-
-
+    doneBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        createNewList(selectedIcon, selectedColor, newListName);
+    });
     
     return wrapper;
 })();

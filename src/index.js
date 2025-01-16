@@ -20,8 +20,7 @@ newListBtn.addEventListener('click', (event) => {
  
 })
 
-window.Reminder = Reminder;
-window.List = List;
+// window.Reminder = Reminder;
+// window.List = List;
 
-const rem = new Reminder('test1');
-console.log(rem.id);
+// const rem = new Reminder('test1');
