@@ -190,7 +190,7 @@ span.today {
     gap: 1rem;
 }
 
-.color-span-wrap {
+.color-span-wrap, .icon-span-wrap {
     display: inline-flex;
     height: calc((100% - 1.6rem)/7);
     /* width: calc((100% - 1.6rem)/7); */
@@ -200,12 +200,6 @@ span.today {
     align-items: center;
 }
 
-.color-wrap {
-    display: flex;
-    gap: 0.25rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
 
 .wrap-center {
     display: flex;
@@ -213,10 +207,12 @@ span.today {
     align-items: center;
 }
 
-span.color {
+span.color, span.icon {
     height: 2.5rem;
     width: 2.5rem;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .circle {
@@ -237,4 +233,8 @@ span.color {
     background-color: white;
     padding: 0.8rem;
     border-radius: 10px;
+}
+
+span.icon {
+    background-color: rgb(240, 238, 238);
 }

@@ -24,7 +24,9 @@ export default (function newList() {
         <div class="color-wrap card-wrap"></div>
     </div>
     
-    <div class="icons-wrap card-wrap"></div>
+    <div class="wrap-center">
+        <div class="icons-wrap card-wrap"></div>
+    </div>
 </div>
     `
     wrapper.innerHTML = content;
@@ -32,10 +34,14 @@ export default (function newList() {
     wrapper.style.transform = `translateY(10%)`;
 
     const colorDiv = wrapper.querySelector('.color-wrap');
-    let selectColor;
+    let selectedColor;
     colorList.forEach((color) => {
         const colorSpanWrap = document.createElement('span');
-        colorSpanWrap.classList.add('color-span-wrap', 'circle-not-select');
+        if (color === 'blue') {
+            colorSpanWrap.classList.add('color-span-wrap', 'circle-select');
+        } else {
+            colorSpanWrap.classList.add('color-span-wrap', 'circle-not-select');
+        }
 
         const colorSpan = document.createElement('span');
         colorSpan.classList.add('color','circle',`${color}`);
@@ -43,11 +49,10 @@ export default (function newList() {
 
 
         colorSpan.addEventListener('click', (event)=>{
-            selectColor = color;
+            selectedColor = color;
             event.target.parentElement.classList.add('circle-select');
             event.target.parentElement.classList.remove('circle-not-select');
             event.target.parentElement.parentElement.childNodes.forEach((child) => {
-                console.log(child.firstChild.classList.contains(color))
                 if (child.firstChild.classList.contains(color)) {
                     child.classList.remove('circle-not-select');
                     child.classList.add('circle-select');
@@ -60,6 +65,42 @@ export default (function newList() {
 
         colorSpanWrap.append(colorSpan);
         colorDiv.appendChild(colorSpanWrap);
+    })
+
+
+    const iconDiv = wrapper.querySelector('.icons-wrap');
+    let selectedIcon;
+
+    iconList.forEach((icon)=> {
+        const iconSpanWrap = document.createElement('span');
+
+        if (icon === 'list') {
+            iconSpanWrap.classList.add('icon-span-wrap', 'circle-select');
+        } else {
+            iconSpanWrap.classList.add('icon-span-wrap', 'circle-not-select');
+        }
+
+        const iconSpan = document.createElement('span');
+        iconSpan.classList.add('icon','circle',`${icon}`,'material-symbols-outlined');
+        iconSpan.textContent = `${icon}`;
+
+        iconSpan.addEventListener('click', (event)=>{
+            selectedIcon = icon;
+            event.target.parentElement.classList.add('circle-select');
+            event.target.parentElement.classList.remove('circle-not-select');
+            event.target.parentElement.parentElement.childNodes.forEach((child) => {
+                if (child.firstChild.classList.contains(icon)) {
+                    child.classList.remove('circle-not-select');
+                    child.classList.add('circle-select');
+                } else {
+                    child.classList.add('circle-not-select');
+                    child.classList.remove('circle-select');
+                }
+            })
+        })
+
+        iconSpanWrap.append(iconSpan);
+        iconDiv.appendChild(iconSpanWrap);
     })
 
 
