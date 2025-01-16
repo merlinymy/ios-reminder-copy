@@ -14,7 +14,7 @@ newListBtn.addEventListener('click', (event) => {
     event.preventDefault();
     body.append(newList);
     requestAnimationFrame(() => {
-        newList.style.height = `98vh`;
+        newList.style.height = `98dvh`;
         newList.style.transform = `translateY(-98%)`;  
         main.style.borderRadius = '10px';
         main.style.transform = `scale(0.95)`;
