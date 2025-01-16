@@ -4,8 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reminder</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
+
 <body>
-    
+    <div class="main">
+        <div class="top-tool">
+            <span class="material-symbols-outlined pending">
+                pending
+            </span>
+        </div>
+        <div class="search">
+            <div class="search-bar">
+                <span class="material-symbols-outlined search">
+                    search
+                </span>
+                <input class = "search-input" type="text" placeholder="Search">
+            </div>
+        </div>
+        <div class="organize">
+            <div class="card today">
+                <div class="card-contents">
+                    <div class="icon-and-count">
+                        <div class="icon-wrap">
+                            <span class="material-symbols-outlined today">
+                                today
+                            </span>
+                        </div>
+                        <p class="item-count">
+                            <!-- dynamically count in js -->
+                            1
+                        </p>
+                    </div>
+                    <div class="card_name">Today</div>
+                </div>
+            </div>
+            <div class="card scheduled">
+                <div class="card-contents">
+                    <div class="icon-and-count">
+                        <div class="icon-wrap">
+                            <span class="material-symbols-outlined calendar_month">
+                                calendar_month
+                            </span>
+                        </div>
+                        <p class="item-count">
+                            1
+                        </p>
+                    </div>
+                    <div class="card_name">Scheduled</div>
+                </div>
+            </div>
+            <div class="card all">
+                <div class="card-contents">
+                    <div class="icon-and-count">
+                        <div class="icon-wrap">
+                            <span class="material-symbols-outlined inventory_2">
+                                inventory_2
+                            </span>
+                        </div>
+                        <p class="item-count">
+                            1
+                        </p>
+                    </div>
+                    <div class="card_name">All</div>
+                </div>
+            </div>
+            <div class="card falgged">
+                <div class="card-contents">
+                    <div class="icon-and-count">
+                        <div class="icon-wrap">
+                            <span class="material-symbols-outlined flag_2">
+                                flag_2
+                            </span>
+                        </div>
+                        <p class="item-count">
+                            1
+                        </p>
+                    </div>
+                    <div class="card_name">Flagged</div>
+                </div>
+            </div>
+            <div class="card completed">
+                <div class="card-contents">
+                    <div class="icon-and-count">
+                        <div class="icon-wrap">
+                            <span class="material-symbols-outlined check">
+                                check
+                            </span>
+                        </div>
+                        <p class="item-count">
+                            1
+                        </p>
+                    </div>
+                    <div class="card_name">Completed</div>
+                </div>
+            </div>
+        </div>
+        <div class="lists">
+            <h1 class="my-lists">My Lists</h1>
+            <div class="list-tabs">
+
+            </div>
+        </div>
+        <div class="buttom-tool">
+            <button class="new-reminder">New Reminder</button>
+            <button class="add-list">Add List</button>
+        </div>
+    </div>
+
 </body>
 </html>
