@@ -96,7 +96,6 @@ span.search {
 .search {
     height: 1.85rem;
     border-radius: 9px;
-    margin-bottom: 1dvh;
 }
 
 .search-input:focus {
