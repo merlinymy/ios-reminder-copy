@@ -1,6 +1,6 @@
 export default class Reminder {
     // #id;
-    constructor (title, notes, date, time, tags, flag, priority, list, subtasks, image) {
+    constructor (title, notes, date, time, tags, flag, priority, list, subtasks, image, isComplete) {
         this._id = Reminder.generateId();
         this.title = title;
         this.notes = notes;
@@ -12,6 +12,7 @@ export default class Reminder {
         this.list = list;
         this.subtasks = subtasks;
         this.image = image;
+        this.isComplete = isComplete;
     }
 
     static generateId() {

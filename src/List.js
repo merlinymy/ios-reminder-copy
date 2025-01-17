@@ -1,6 +1,8 @@
 export default class List {
-    constructor(name) {
+    constructor(name, color, icon) {
         this.name = name;
+        this.color = color;
+        this.icon = icon;
         this.reminders = [];
     }
 

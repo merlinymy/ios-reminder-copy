@@ -29,6 +29,10 @@ button {
     font-size: 1.15rem;
 }
 
+.hidden {
+    display: none;
+}
+
 .main {
     position: relative;
     display: flex;

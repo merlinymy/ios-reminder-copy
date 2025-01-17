@@ -1,6 +1,6 @@
 import { iconList, colorList } from "../util";
-import { createNewList } from "../applicationLogic/addNewList";
-
+import { storeNewList, createNewList } from "../applicationLogic/addNewList";
+import { updateUI } from "../UiLogic/updateUI";
 export default (function newList() {
     // TODO: add touch ctrl
     const wrapper = document.createElement("div");
@@ -119,8 +119,11 @@ export default (function newList() {
     let newListName;
     nameInput.addEventListener('input', (event) => {
         event.preventDefault();
-        if (event.target.value) {
+        let value = event.target.value;
+        if ( value !== '' && value !== undefined && value !== null ) {
             doneBtn.disabled = false;
+        } else {
+            doneBtn.disabled = true;
         }
         newListName = event.target.value;
     });
@@ -168,8 +171,14 @@ export default (function newList() {
     doneBtn.addEventListener('click', (e) => {
         e.preventDefault();
         playAnimation();
-        createNewList(selectedIcon, selectedColor, newListName);
-
+        try {
+            const newList = createNewList(selectedIcon, selectedColor, newListName);
+            storeNewList(newList);
+            updateUI();
+        } catch (e) {
+            console.log(e);
+        }
+        // updateUI();
     });
     
     return wrapper;
