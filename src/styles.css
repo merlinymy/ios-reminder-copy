@@ -38,10 +38,13 @@ button {
     display: flex;
     flex-direction: column;
     height: 100dvh;
-    padding: 0.75rem;
     transition: all 300ms;
     /* border-radius: 10px; */
     background-color: var(--background0);
+}
+
+.main-content {
+    padding: 0rem 0.75rem 0.75rem 0.75rem;
 }
 
 span.pending {
@@ -73,8 +76,8 @@ span.search {
 }
 
 .main>.top-tool {
-    padding: 0rem;
-    z-index: 0;
+
+    z-index: 10;
 }
 
 .white-bg {
@@ -98,7 +101,7 @@ span.search {
 }
 
 .search {
-    height: 1.85rem;
+    padding: 0.05rem 0.75rem 0.75rem 0.75rem;
     border-radius: 9px;
 }
 
@@ -128,7 +131,6 @@ span.today {
 }
 
 .organize {
-    margin-top: 3dvh;
     margin-bottom: 4dvh;
 }
 
@@ -187,6 +189,7 @@ span.today {
 
 .my-lists {
     margin-left: 1rem;
+    margin-bottom: 0.75rem;
 }
 .lists {
     margin-bottom: auto;
@@ -305,3 +308,52 @@ span.big-icon {
 span.new-list {
     font-size: 1.55rem;
 }
+
+.scrollable {
+    overflow: scroll;
+}
+
+.list-tabs > div:first-child {
+    border-radius: 10px 10px 0px 0px;
+}
+
+.list-tabs > div:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
+
+.list-tabs > div:not(:last-child) {
+border-bottom: 1px solid grey;}
+
+.list-card, .list-card>div {
+    display: flex;   
+    align-items: center; 
+}
+
+.list-card {
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.75rem;
+}
+
+.list-card span:first-child {
+    color: white;
+}
+
+.list-card p {
+    font-size: 1.25rem;
+}
+
+.margin-btm-auto {
+    margin-bottom: auto;
+}
+
+.left-wrap {
+    gap: 0.75rem;
+}
+
+.bottom-tool {
+    position: relative;
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+    z-index: 10;
+}
+

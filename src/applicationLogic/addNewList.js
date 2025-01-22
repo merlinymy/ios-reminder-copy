@@ -8,7 +8,6 @@ function createNewList(icon, color, name) {
 
 function storeNewList(list) {
     const listArray = JSON.parse(localStorage.getItem('lists')) || [];
-    console.log(listArray);
     listArray.push(list);
     localStorage.setItem('lists', JSON.stringify(listArray));
 }

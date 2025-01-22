@@ -1,6 +1,7 @@
 import { iconList, colorList } from "../util";
 import { storeNewList, createNewList } from "../applicationLogic/addNewList";
-import { updateUI } from "../UiLogic/updateUI";
+import { updateMyListUI } from "../UiLogic/updateUI";
+import { newListTab } from "./listTab";
 export default (function newList() {
     // TODO: add touch ctrl
     const wrapper = document.createElement("div");
@@ -172,9 +173,13 @@ export default (function newList() {
         e.preventDefault();
         playAnimation();
         try {
+            // json object
             const newList = createNewList(selectedIcon, selectedColor, newListName);
+            // store in local storage
             storeNewList(newList);
-            updateUI();
+
+            // list tab UI element
+            updateMyListUI();
         } catch (e) {
             console.log(e);
         }
