@@ -1,6 +1,76 @@
 import { newListTab } from "../components/listTab";
+import newList from "../components/newList";
 
-const updateMyListUI = function () {
+const newListBtn = document.querySelector("button.add-list");
+const newReminderBtn = document.querySelector("button.new-reminder");
+const main = document.querySelector('.main');
+const body = document.querySelector('body');
+const mainContent = document.querySelector('.main-content');
+const organizeDiv = document.querySelector('.organize');
+const listsDiv = document.querySelector('.lists');
+const searchBox = document.querySelector('.search');
+const topTool = document.querySelector('.top-tool');
+const btmTool = document.querySelector('.bottom-tool');
+const topToolBtm = topTool.getBoundingClientRect().bottom;
+let mainContentTop = mainContent.getBoundingClientRect().top;
+let listsDivBtm;
+const btmToolTop = btmTool.getBoundingClientRect().top;
+const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
+const searchInput = document.querySelector('input.search-input'); 
+const searchIcon = document.querySelector('span.search');
+
+
+export const newListCard = function(event) {
+    
+    event.preventDefault();
+    body.append(newList);
+    requestAnimationFrame(() => {
+        newList.style.height = `98dvh`;
+        newList.style.transform = `translateY(-98%)`;  
+        main.style.borderRadius = '10px';
+        main.style.transform = `scale(0.95)`;
+    });
+
+}
+
+export const checkBtmToolBorder = function () {
+
+    if (listsDivBtm > btmToolTop) {
+        btmTool.classList.add('top-border', 'white-bg');
+    } else {
+        btmTool.classList.remove('top-border', 'white-bg');
+    }
+}
+
+export const mainContenOnScroll = function(event) {
+    const topToolBtm = topTool.getBoundingClientRect().bottom;
+    const orgDivTop = organizeDiv.getBoundingClientRect().top;
+    const listsDivBtm = listsDiv.getBoundingClientRect().bottom;
+    const btmToolTop = btmTool.getBoundingClientRect().top;
+    const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
+    event.preventDefault();
+    if (orgDivTop < searchBoxBtm) {
+        // first resize the search icon
+        searchIcon.style.fontSize = `calc(3dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
+        // then set input placehold style to transparent
+        searchInput.style.fontSize = `calc(2dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
+        // finally shrink the search box
+        searchInput.style.height = `calc(4dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
+        const searchBoxHeightOriginal = searchBox.style.height;
+    } else {
+        // searchBox.prepend(searchIcon)
+    }
+    if (listsDivBtm > btmToolTop) {
+        btmTool.classList.add('top-border', 'white-bg');
+    } else {
+        btmTool.classList.remove('top-border', 'white-bg');
+    }
+}
+
+
+
+
+export const updateMyListUI = function () {
     // if no lists stored, hide My Lists h1
     const storedLists = JSON.parse(localStorage.getItem('lists'));
     const mylistsH1 = document.querySelector('h1.my-lists');
@@ -29,6 +99,6 @@ const updateMyListUI = function () {
             listTabsWrap.append(aTab);
         });
     }
+    listsDivBtm = listsDiv.getBoundingClientRect().bottom
 }
 
-export {updateMyListUI};

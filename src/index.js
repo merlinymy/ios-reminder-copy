@@ -1,27 +1,21 @@
 import Reminder from "./Reminder";
 import List from "./List";
 import './styles.css';
-import newList from "./components/newList";
-import { updateMyListUI } from "./UiLogic/updateUI";
+import * as updateUI from "./UiLogic/updateUI";
 
 const newListBtn = document.querySelector("button.add-list");
-const newReminderBtn = document.querySelector("button.new-reminder");
-const main = document.querySelector('.main');
-const body = document.querySelector('body');
-
-updateMyListUI();
+const mainContent = document.querySelector('.main-content');
 
 newListBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    body.append(newList);
-    requestAnimationFrame(() => {
-        newList.style.height = `98dvh`;
-        newList.style.transform = `translateY(-98%)`;  
-        main.style.borderRadius = '10px';
-        main.style.transform = `scale(0.95)`;
-    });
- 
-})
+    updateUI.newListCard(event);
+});
+
+mainContent.addEventListener('scroll', (event)=>{
+    updateUI.mainContenOnScroll(event);
+});
+
+updateUI.updateMyListUI();
+updateUI.checkBtmToolBorder();
 
 // window.Reminder = Reminder;
 // window.List = List;
