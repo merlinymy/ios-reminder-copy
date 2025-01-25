@@ -1,3 +1,5 @@
+import { reminderUI } from "./reminderPage";
+
 const newListTab = function (color, name, icon, length) {
     const component = document.createElement('div');
     const leftWrap = document.createElement('div');
@@ -22,6 +24,15 @@ const newListTab = function (color, name, icon, length) {
     arrowIconSpan.classList.add('material-symbols-outlined', 'list-tab-icon');
     arrowIconSpan.textContent = 'arrow_forward_ios';
     component.append(leftWrap, rightWrap);
+
+    //TODO: sliding, right click and hold to open options
+    // , drag to rearange, left click and tap to open
+    component.addEventListener('click', (event) => {
+        const idx = [...event.target.parentNode.children].indexOf(event.target);
+        // console.log([...event.target.parentNode.children].indexOf(event.target));
+        // generateReminders(idx);
+        reminderUI(idx);
+    }) 
 
     return component;
 }

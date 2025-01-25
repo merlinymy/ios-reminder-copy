@@ -1,5 +1,7 @@
 import { newListTab } from "../components/listTab";
 import newList from "../components/newList";
+import { reminderUI } from "../components/reminderPage";
+import { newReminderComponent } from "../components/newReminder";
 
 const newListBtn = document.querySelector("button.add-list");
 const newReminderBtn = document.querySelector("button.new-reminder");
@@ -49,7 +51,7 @@ export const mainContenOnScroll = function(event) {
     const btmToolTop = btmTool.getBoundingClientRect().top;
     const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
     event.preventDefault();
-    if (orgDivTop < searchBoxBtm) {
+    if (orgDivTop< searchBoxBtm) {
         // first resize the search icon
         searchIcon.style.fontSize = `calc(3dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
         // then set input placehold style to transparent
@@ -57,8 +59,12 @@ export const mainContenOnScroll = function(event) {
         // finally shrink the search box
         searchInput.style.height = `calc(4dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
         const searchBoxHeightOriginal = searchBox.style.height;
+        searchBox.classList.add('bottom-border', 'white-bg');
+        topTool.classList.add('white-bg');
     } else {
-        // searchBox.prepend(searchIcon)
+        searchBox.classList.remove('bottom-border', 'white-bg');
+        topTool.classList.remove('white-bg');
+
     }
     if (listsDivBtm > btmToolTop) {
         btmTool.classList.add('top-border', 'white-bg');
@@ -66,9 +72,6 @@ export const mainContenOnScroll = function(event) {
         btmTool.classList.remove('top-border', 'white-bg');
     }
 }
-
-
-
 
 export const updateMyListUI = function () {
     // if no lists stored, hide My Lists h1
@@ -79,7 +82,7 @@ export const updateMyListUI = function () {
 
     if (storedLists === null || storedLists.length === 0 ) {
         // hide My List h1
-        mylistsH1 = document.querySelector('h1.my-lists');
+        // mylistsH1 = document.querySelector('h1.my-lists');
         mylistsH1.classList.add('hidden');
 
         // disable new reminder button
@@ -100,5 +103,15 @@ export const updateMyListUI = function () {
         });
     }
     listsDivBtm = listsDiv.getBoundingClientRect().bottom
+}
+
+export const newReminderCard = function() {
+    body.append(newReminderComponent);
+    requestAnimationFrame(() => {
+        newReminderComponent.style.height = `98dvh`;
+        newReminderComponent.style.transform = `translateY(-98%)`;  
+        main.style.borderRadius = '10px';
+        main.style.transform = `scale(0.95)`;
+    });
 }
 
