@@ -12,8 +12,7 @@ export const newReminderComponent = (() => {
     const doneBtn = component.querySelector('button.done');
     const cancelBtn = component.querySelector('button.cancel');
     const selectList = component.querySelector('div.select-list');
-    const firstList = JSON.parse(JSON.parse(localStorage.getItem('lists'))[0]);
-    const defaultList = localStorage.getItem('last-choice') || firstList;
+    const storageLists = localStorage.getItem('lists');
     const titleInput = component.querySelector('textarea#title');
     const notesArea = component.querySelector('textarea#notes');
     const detailTab = component.querySelector('.reminder-details-tab');
@@ -43,8 +42,12 @@ export const newReminderComponent = (() => {
         event.target.style.height = '';
         event.target.style.height = `${event.target.scrollHeight}px`;
     })
+    if (storageLists) {
+        const firstList = JSON.parse(JSON.parse(localStorage.getItem('lists'))[0]);
+        const defaultList = localStorage.getItem('last-choice') || firstList;
+        selectList.append(newReminderListSelect(defaultList.color, defaultList.name, defaultList.icon))
 
-    selectList.append(newReminderListSelect(defaultList.color, defaultList.name, defaultList.icon))
+    }
     
     const playAnimation = function () {
         requestAnimationFrame(()=>{

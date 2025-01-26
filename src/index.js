@@ -7,6 +7,8 @@ const newListBtn = document.querySelector("button.add-list");
 const newReminderBtn = document.querySelector('button.new-reminder');
 const mainContent = document.querySelector('.main-content');
 
+
+
 newListBtn.addEventListener('click', (event) => {
     updateUI.newListCard(event);
 });
