@@ -1,10 +1,12 @@
 import newReminderHtml from './newReminder.html'
 import { newListTab, newReminderListSelect } from './listTab';
 import * as updateUI from '../UiLogic/updateUI';
+import { createDetails } from "../components/detailsPage";
+
 
 export const newReminderComponent = (() => {
     const main = document.querySelector('.main');
-
+    const body = document.querySelector('body');
     const component = document.createElement('div')
     component.classList.add('new-reminder-div');
     component.innerHTML = newReminderHtml;
@@ -23,7 +25,12 @@ export const newReminderComponent = (() => {
     doneBtn.disabled = true;
 
     detailTab.addEventListener('click', () => {
-        updateUI.createDetailPage();
+        const detailPage = createDetails();
+        body.append(detailPage);
+        requestAnimationFrame(() => {
+            component.style.transform = `translateY(-98%) translateX(-100%)`;  
+            detailPage.style.transform = 'translate(0%, -198%)';
+        });
     });
 
     titleInput.addEventListener('input', (event) => {
@@ -86,6 +93,6 @@ export const newReminderComponent = (() => {
     });
 
     return component;
-})();
+});
 
 

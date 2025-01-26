@@ -22,15 +22,6 @@ const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
 const searchInput = document.querySelector('input.search-input'); 
 const searchIcon = document.querySelector('span.search');
 
-export const createDetailPage = function () {
-    const detailPage = createDetails();
-    body.append(detailPage);
-    requestAnimationFrame(() => {
-        newReminderComponent.style.transform = `translateY(-98%) translateX(-100%)`;  
-        detailPage.style.transform = 'translate(0%, -198%)';
-    });
-}
-
 export const newListCard = function(event) {
     
     event.preventDefault();
@@ -114,10 +105,11 @@ export const updateMyListUI = function () {
 }
 
 export const newReminderCard = function() {
-    body.append(newReminderComponent);
+    const newReminder = newReminderComponent();
+    body.append(newReminder);
     requestAnimationFrame(() => {
-        newReminderComponent.style.height = `98dvh`;
-        newReminderComponent.style.transform = `translateY(-98%)`;  
+        newReminder.style.height = `98dvh`;
+        newReminder.style.transform = `translateY(-98%)`;  
         main.style.borderRadius = '10px';
         main.style.transform = `scale(0.95)`;
     });
