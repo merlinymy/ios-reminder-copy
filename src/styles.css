@@ -368,3 +368,62 @@ border-bottom: 1px solid grey;}
     backdrop-filter: blur(10px);
 }
 
+.new-reminder-div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.new-reminder-div > div:not(:first-child) {
+    margin: 0rem 0.75rem 0rem 0.75rem;
+    border-radius: 9px;
+}
+
+.list-card-select {
+    border-radius: 9px;
+}
+
+.new-reminder-div > .input-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 0.75rem;
+    background-color: white;
+    border-radius: 9px;
+}
+
+.reminder-details-tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background-color: white;
+    border-radius: 9px;
+    align-items: center;
+}
+
+.input-group > textarea {
+    border: none;
+    font-size: 2dvh;
+    height: fit-content;
+}
+
+textarea#title:focus, textarea#notes:focus {
+    outline: none;
+}
+
+.input-group > textarea::placeholder {
+    color: rgb(211, 211, 211);
+}
+
+textarea#title {
+    border-bottom: 1px solid grey;
+    height: 5.5dvh;
+    padding: 0.75rem 0.25rem 0.75rem 0.25rem;
+}
+
+textarea#notes {
+    display: flex;
+    justify-content: center;
+    text-align: start;
+    padding: 0.75rem 0.25rem 0.75rem 0.25rem;
+    height: 12dvh;
+}

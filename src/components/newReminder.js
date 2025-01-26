@@ -1,4 +1,5 @@
 import newReminderHtml from './newReminder.html'
+import { newListTab, newReminderListSelect } from './listTab';
 
 export const newReminderComponent = (() => {
     const main = document.querySelector('.main');
@@ -7,11 +8,38 @@ export const newReminderComponent = (() => {
     component.classList.add('new-reminder-div');
     component.innerHTML = newReminderHtml;
 
-    console.log(component)
-
     const doneBtn = component.querySelector('button.done');
-    // console.log(doneBtn)
     const cancelBtn = component.querySelector('button.cancel');
+    const selectList = component.querySelector('div.select-list');
+    const firstList = JSON.parse(JSON.parse(localStorage.getItem('lists'))[0]);
+    const defaultList = localStorage.getItem('last-choice') || firstList;
+    const titleInput = component.querySelector('textarea#title');
+    const notesArea = component.querySelector('textarea#notes');
+
+    let reminderTitle;
+    let reminderNotes;
+
+    doneBtn.disabled = true;
+
+    titleInput.addEventListener('input', (event) => {
+        event.target.style.height = '';
+        event.target.style.height = `${event.target.scrollHeight}px`;
+        let value = event.target.value;
+        if ( value !== '' && value !== undefined && value !== null ) {
+            doneBtn.disabled = false;
+            reminderTitle = event.target.value;
+        } else {
+            doneBtn.disabled = true;
+        }
+    })
+
+    notesArea.addEventListener('input', (event) => {
+        event.target.style.height = '';
+        event.target.style.height = `${event.target.scrollHeight}px`;
+
+    })
+
+    selectList.append(newReminderListSelect(defaultList.color, defaultList.name, defaultList.icon))
     
     const playAnimation = function () {
         requestAnimationFrame(()=>{

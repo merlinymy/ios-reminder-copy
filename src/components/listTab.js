@@ -37,4 +37,38 @@ const newListTab = function (color, name, icon, length) {
     return component;
 }
 
-export {newListTab};
+const newReminderListSelect = function (color, name, icon) {
+    const component = document.createElement('div');
+    const leftWrap = document.createElement('div');
+    const rightWrap = document.createElement('div');
+    const iconSpan = document.createElement('span');
+    const listP = document.createElement('p');
+    listP.textContent = 'List';
+    const listNameP = document.createElement('p');
+    const arrowIconSpan = document.createElement('span');
+
+    leftWrap.append(iconSpan, listP);
+    leftWrap.classList.add('left-wrap');
+    rightWrap.append(listNameP, arrowIconSpan);
+    rightWrap.classList.add('right-wrap');
+
+    component.classList.add('list-card', 'list-card-select');
+    iconSpan.classList.add('material-symbols-outlined', 'list-tab-icon', 'circle');
+    iconSpan.textContent = icon;
+    iconSpan.style.backgroundColor = color;
+    listNameP.classList.add('list-name');
+    listNameP.textContent = name;
+    arrowIconSpan.classList.add('material-symbols-outlined', 'list-tab-icon');
+    arrowIconSpan.textContent = 'arrow_forward_ios';
+    component.append(leftWrap, rightWrap);
+
+    //TODO: sliding, right click and hold to open options
+    // , drag to rearange, left click and tap to open
+    component.addEventListener('click', (event) => {
+
+    }) 
+
+    return component;
+}
+
+export {newListTab, newReminderListSelect};
