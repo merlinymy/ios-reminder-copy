@@ -2,6 +2,7 @@ import { newListTab } from "../components/listTab";
 import newList from "../components/newList";
 import { reminderUI } from "../components/reminderPage";
 import { newReminderComponent } from "../components/newReminder";
+import { createDetails } from "../components/detailsPage";
 
 const newListBtn = document.querySelector("button.add-list");
 const newReminderBtn = document.querySelector("button.new-reminder");
@@ -21,6 +22,14 @@ const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
 const searchInput = document.querySelector('input.search-input'); 
 const searchIcon = document.querySelector('span.search');
 
+export const createDetailPage = function () {
+    const detailPage = createDetails();
+    body.append(detailPage);
+    requestAnimationFrame(() => {
+        newReminderComponent.style.transform = `translateY(-98%) translateX(-100%)`;  
+        detailPage.style.transform = 'translate(0%, -198%)';
+    });
+}
 
 export const newListCard = function(event) {
     
@@ -32,7 +41,6 @@ export const newListCard = function(event) {
         main.style.borderRadius = '10px';
         main.style.transform = `scale(0.95)`;
     });
-
 }
 
 export const checkBtmToolBorder = function () {

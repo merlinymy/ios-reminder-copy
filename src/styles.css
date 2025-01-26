@@ -29,9 +29,6 @@ button {
     font-size: 1.15rem;
 }
 
-.hidden {
-    display: none;
-}
 
 .main {
     position: relative;
@@ -73,6 +70,17 @@ span.search {
     background-color: var(--background0);
     transition: all 300ms;
     padding: 0rem 1rem 0rem 1rem;
+}
+
+.top-tool > button.cancel {
+    gap: 0px;
+}
+
+.top-tool>span.details-span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .main>.top-tool {
@@ -209,7 +217,7 @@ span.today {
     font-weight:560;
 }
 
-.list-wrap, .new-reminder-div {
+.list-wrap, .new-reminder-div, .details-wrap {
     position: relative;
     background-color: var(--background0);
     z-index: 10;
@@ -426,4 +434,14 @@ textarea#notes {
     text-align: start;
     padding: 0.75rem 0.25rem 0.75rem 0.25rem;
     height: 12dvh;
+}
+
+.details-wrap {
+    background-color: var(--background0);
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    height: 98dvh;
+    transform: translate(100%, -198%);
+    z-index: 20;
+    transition: all 300ms;
 }

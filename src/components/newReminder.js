@@ -1,5 +1,6 @@
 import newReminderHtml from './newReminder.html'
 import { newListTab, newReminderListSelect } from './listTab';
+import * as updateUI from '../UiLogic/updateUI';
 
 export const newReminderComponent = (() => {
     const main = document.querySelector('.main');
@@ -15,11 +16,16 @@ export const newReminderComponent = (() => {
     const defaultList = localStorage.getItem('last-choice') || firstList;
     const titleInput = component.querySelector('textarea#title');
     const notesArea = component.querySelector('textarea#notes');
+    const detailTab = component.querySelector('.reminder-details-tab');
 
     let reminderTitle;
     let reminderNotes;
 
     doneBtn.disabled = true;
+
+    detailTab.addEventListener('click', () => {
+        updateUI.createDetailPage();
+    });
 
     titleInput.addEventListener('input', (event) => {
         event.target.style.height = '';
@@ -31,12 +37,11 @@ export const newReminderComponent = (() => {
         } else {
             doneBtn.disabled = true;
         }
-    })
+    });
 
     notesArea.addEventListener('input', (event) => {
         event.target.style.height = '';
         event.target.style.height = `${event.target.scrollHeight}px`;
-
     })
 
     selectList.append(newReminderListSelect(defaultList.color, defaultList.name, defaultList.icon))
