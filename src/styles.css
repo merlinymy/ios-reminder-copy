@@ -416,6 +416,7 @@ border-bottom: 1px solid grey;}
     border: none;
     font-size: 2dvh;
     height: fit-content;
+    resize: none;
 }
 
 textarea#title:focus, textarea#notes:focus {
@@ -452,6 +453,9 @@ textarea#notes {
 
 .details-content {
     padding: 0rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .details-content > div {
@@ -473,6 +477,10 @@ textarea#notes {
 
 .date > span {
     background-color: rgb(238, 69, 69);
+}
+
+.date {
+    border-bottom: 1px solid gainsboro;
 }
 
 .time > span {
@@ -497,6 +505,8 @@ textarea#notes {
 
 .name-and-toggle {
     display: flex;
+    align-items: center;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -508,4 +518,83 @@ textarea#notes {
     width: 2rem;
     height: 1.2rem;
     background-color: var(--bg-input);
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  /* code from w3 */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #17a83b;
+  }
+  
+  /* input:focus + .slider {
+    box-shadow: 0 0 1px #17a83b;
+  } */
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+    /* The slider ends*/
+
+#priority {
+    border: none;
+    font-size: 1.2rem;
+    color: grey;
+    text-align: center;
+    appearance: none;
+}
+
+#priority::selection {
+    border: none;
 }
