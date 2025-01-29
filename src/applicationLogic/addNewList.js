@@ -12,4 +12,9 @@ function storeNewList(list) {
     localStorage.setItem('lists', JSON.stringify(listArray));
 }
 
-export {createNewList, storeNewList};
+function getLists() {
+    const result = JSON.parse(localStorage.getItem('lists'));
+    return result;
+}
+
+export {createNewList, storeNewList, getLists};

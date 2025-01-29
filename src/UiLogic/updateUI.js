@@ -3,6 +3,8 @@ import newList from "../components/newList";
 import { reminderUI } from "../components/reminderPage";
 import { newReminderComponent } from "../components/newReminder";
 import { createDetails } from "../components/detailsPage";
+import { getLists } from "../applicationLogic/addNewList";
+import { listSelectPage } from "../components/listSelectPage";
 
 const newListBtn = document.querySelector("button.add-list");
 const newReminderBtn = document.querySelector("button.new-reminder");
@@ -105,13 +107,28 @@ export const updateMyListUI = function () {
 }
 
 export const newReminderCard = function() {
+    const reminderWrap = document.createElement('div');
+    reminderWrap.classList.add('reminder-wrap');
     const newReminder = newReminderComponent();
-    body.append(newReminder);
+    reminderWrap.append(newReminder);
+    body.append(reminderWrap);
+    const detailPage = createDetails();
+    reminderWrap.append(detailPage);
+    const listSelectCard = listSelectPage();
+    reminderWrap.append(listSelectCard);
+
     requestAnimationFrame(() => {
         newReminder.style.height = `98dvh`;
-        newReminder.style.transform = `translateY(-98%)`;  
+        newReminder.style.transform = `translateY(-98%)`; 
+        detailPage.style.height = `98dvh`;
+        detailPage.style.transform = `translateY(-98%)`;  
+        listSelectCard.style.height = `98dvh`;
+        listSelectCard.style.transform = `translateY(-98%)`;  
         main.style.borderRadius = '10px';
-        main.style.transform = `scale(0.95)`;
+        main.children[0].style.borderRadius = '10px'
+        main.style.transform = `scale(0.98)`;
     });
 }
+
+
 

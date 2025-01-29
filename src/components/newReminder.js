@@ -1,8 +1,10 @@
 import newReminderHtml from './newReminder.html'
-import { newListTab, newReminderListSelect } from './listTab';
+import { newListTab, newReminderListDefault } from './listTab';
 import * as updateUI from '../UiLogic/updateUI';
 import { createDetails } from "../components/detailsPage";
-
+import { setCanAdd, getCanAdd } from '../util';
+import { getLists } from '../applicationLogic/addNewList';
+import { listSelectPage } from './listSelectPage';
 
 export const newReminderComponent = (() => {
     const main = document.querySelector('.main');
@@ -25,11 +27,9 @@ export const newReminderComponent = (() => {
     doneBtn.disabled = true;
 
     detailTab.addEventListener('click', () => {
-        const detailPage = createDetails();
-        body.append(detailPage);
         requestAnimationFrame(() => {
-            component.style.transform = `translateY(-98%) translateX(-100%)`;  
-            detailPage.style.transform = 'translate(0%, -198%)';
+            component.parentElement.style.transform = `translateX(-50%)`;  
+            
         });
     });
 
@@ -40,8 +40,10 @@ export const newReminderComponent = (() => {
         if ( value !== '' && value !== undefined && value !== null ) {
             doneBtn.disabled = false;
             reminderTitle = event.target.value;
+            setCanAdd(true);
         } else {
             doneBtn.disabled = true;
+            setCanAdd(false);
         }
     });
 
@@ -52,9 +54,17 @@ export const newReminderComponent = (() => {
     if (storageLists) {
         const firstList = JSON.parse(JSON.parse(localStorage.getItem('lists'))[0]);
         const defaultList = localStorage.getItem('last-choice') || firstList;
-        selectList.append(newReminderListSelect(defaultList.color, defaultList.name, defaultList.icon))
-
+        selectList.append(newReminderListDefault(defaultList.color, defaultList.name, defaultList.icon))
     }
+
+    selectList.addEventListener('click', () => {
+        const listSelectWrap = document.querySelector('.list-select-wrap');
+        requestAnimationFrame(() => {
+            listSelectWrap.style.zIndex = '12';
+            listSelectWrap.style.opacity = '1';
+            component.parentElement.style.transform = `translateX(-50%)`;  
+        });
+    });
     
     const playAnimation = function () {
         requestAnimationFrame(()=>{
@@ -63,7 +73,9 @@ export const newReminderComponent = (() => {
             main.style.borderRadius = '0px';
         });
         const removeWrapper = function() {
-            component.parentElement.removeChild(component);
+            const wrapper = component.parentElement.parentElement.children[1];
+            console.log(wrapper);
+            wrapper.remove();
         };
         
         setTimeout(removeWrapper, 300);

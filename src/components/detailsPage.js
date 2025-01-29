@@ -2,21 +2,27 @@ import detailPageStruct from './detailsPage.html';
 import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
 import localeEn from 'air-datepicker/locale/en';
-
+import { getCanAdd } from '../util';
 
 export const createDetails = function() {
-    const body = document.querySelector('body');
-    const newReminderPage = document.querySelector('.new-reminder-div');
-    const newReminderTitle = newReminderPage.querySelector('textarea#title');
+
     const component = document.createElement('div');
-    component.classList.add('details-wrap')
+    component.classList.add('details-wrap');
     component.innerHTML = detailPageStruct;
 
     const dateDiv = component.querySelector('.date');
     const dateToggle = component.querySelector('#date-checkbox');
+    let dateToggleState;
     const timeToggle = component.querySelector('#time-checkbox');
+    let timeToggleState;
     const flagToggle = component.querySelector('#flag-checkbox');
+    let flagState;
+
     const prioritySelect = component.querySelector('#priority');
+    let priorityState;
+    prioritySelect.addEventListener('change', (event) => {
+        console.log(event.target.value);
+    })
 
     const dateInput = document.createElement('input');
     const dateInfoP = component.querySelector('.date-info>p');
@@ -36,6 +42,7 @@ export const createDetails = function() {
     dateDiv.after(calendarWrap);
     dateToggle.addEventListener('change', (event) => {
         if (event.target.checked) {
+            dateToggleState = true;
             dateInfoP.after(dateInput);
             calendarWrap.style.maxHeight = '500px';
             calendarWrap.childNodes[0].style.opacity = '1';
@@ -43,6 +50,10 @@ export const createDetails = function() {
             calendar.selectDate(new Date());
             dateInput.value = calendarWrap.value;
         } else {
+            dateToggleState = false;
+            if (timeToggleState) {
+                timeToggle.click();
+            }
             calendarWrap.style.maxHeight = '0';
             calendarWrap.style.transition = 'all 200ms ease-in-out';
             calendarWrap.childNodes[0].style.opacity = '0';
@@ -55,21 +66,44 @@ export const createDetails = function() {
     const timeInput = document.createElement('input');
     const timeInfoP = component.querySelector('.time-info>p');
     timeInput.id = 'time-input';
-    timeInput.setAttribute('type', 'text');
+    timeInput.setAttribute('type', 'time');
+    timeInput.setAttribute('step', 300)
+    timeInput.addEventListener('focus', (event) => {
+        event.target.showPicker();
+    });
 
     const timeWrap = document.createElement('div');
     timeWrap.classList.add('time-wrap');
 
     timeToggle.addEventListener('change', (event) => {
-
+        if (event.target.checked) {
+            if (!dateToggleState) {
+                // console.dir(dateToggle)
+                dateToggle.click();
+            }
+            timeToggleState = true;
+            timeInfoP.after(timeInput);
+            timeInput.focus();
+        } else {
+            timeToggleState = false;
+            timeInput.remove();
+        }
     });
-    
+
+    const detailsTab = document.querySelector('.reminder-details-tab');
     const addBtn = component.querySelector('button.done');
-    if (newReminderTitle.value) {
-        addBtn.disabled = false;
-    } else {
-        addBtn.disabled = true;
-    }
+    addBtn.disabled = true;
+    detailsTab.addEventListener('click', () => {
+        console.log('animation')
+        if (getCanAdd()) {
+            console.log('what')
+            addBtn.disabled = false;
+        } else {
+            addBtn.disabled = true;
+        }
+    });
+
+
 
     const backBtn = component.querySelector('button.cancel');
     backBtn.addEventListener('click', (event) => {
@@ -79,14 +113,13 @@ export const createDetails = function() {
 
     const playAnimation = function () {
         requestAnimationFrame(()=>{
-            component.style.transform = `translate(100%, -198%)`;
-            newReminderPage.style.transform = 'translateY(-98%) translateX(0%)'
+            component.parentElement.style.transform = `translateX(0%)`;
         });
-        const removeWrapper = function() {
-            body.removeChild(component);
-        };
+        // const removeWrapper = function() {
+        //     body.removeChild(component);
+        // };
         
-        setTimeout(removeWrapper, 300);
+        // setTimeout(removeWrapper, 300);
     }
 
     return component;

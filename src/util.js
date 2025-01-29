@@ -22,4 +22,13 @@ const colorList = [
     'indianred', 'violet', 'rosybrown', 'grey', 'salmon'
 ]
 
-export {iconList, colorList};
+let canAdd = false;
+const setCanAdd = (value) => {
+    canAdd = value;
+}
+
+const getCanAdd = () => {
+    return canAdd;
+}
+
+export {iconList, colorList, setCanAdd, getCanAdd};
