@@ -2,10 +2,14 @@ import detailPageStruct from './detailsPage.html';
 import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
 import localeEn from 'air-datepicker/locale/en';
-import { getCanAdd } from '../util';
+import { getCanAdd, setCanAdd } from '../util';
+import { updateDetailTabInfo } from '../UiLogic/updateUI';
+import * as listLogic from '../applicationLogic/listLogic';
+import { createReminder, storeReminder } from '../applicationLogic/reminderLogic';
+import {updateMyListUI} from '../UiLogic/updateUI';
 
 export const createDetails = function() {
-
+    const main = document.querySelector('.main');
     const component = document.createElement('div');
     component.classList.add('details-wrap');
     component.innerHTML = detailPageStruct;
@@ -20,9 +24,7 @@ export const createDetails = function() {
 
     const prioritySelect = component.querySelector('#priority');
     let priorityState;
-    prioritySelect.addEventListener('change', (event) => {
-        console.log(event.target.value);
-    })
+
 
     const dateInput = document.createElement('input');
     const dateInfoP = component.querySelector('.date-info>p');
@@ -59,6 +61,7 @@ export const createDetails = function() {
             calendarWrap.childNodes[0].style.opacity = '0';
             calendarWrap.childNodes[0].style.zIndex = '-10';
             dateInput.remove();
+            dateInput.value = '';
             calendar.clear();
         }
     });
@@ -86,6 +89,7 @@ export const createDetails = function() {
             timeInput.focus();
         } else {
             timeToggleState = false;
+            timeInput.value = '';
             timeInput.remove();
         }
     });
@@ -94,32 +98,67 @@ export const createDetails = function() {
     const addBtn = component.querySelector('button.done');
     addBtn.disabled = true;
     detailsTab.addEventListener('click', () => {
-        console.log('animation')
         if (getCanAdd()) {
-            console.log('what')
             addBtn.disabled = false;
         } else {
             addBtn.disabled = true;
         }
     });
 
+    addBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        let reminderTitle = document.querySelector('textarea#title').value;
+        let notes = document.querySelector('textarea#notes').value;
+        const dateInput = document.querySelector('input#date-input');
+        let date;
+        if (dateInput) {
+            date = dateInput.value;
+        }
+        const timeInput = document.querySelector('input#time-input');
+        let time;
+        if (timeInput) {
+            time = timeInput.value;
+        }
+        const flag = document.querySelector('input#flag-checkbox').checked;
+        const priority = document.querySelector('select#priority').value;
+        const list = listLogic.getSelectedList();
+        const params = [reminderTitle, notes, date, time, flag
+            , priority, list.name, list._id, false];
+        const reminder = createReminder(params);
+        // console.log(reminder);
+        storeReminder(reminder);
+        updateMyListUI();
+        playAnimationOnSubmit();
+        setCanAdd(false);
+
+        // updateUI();
+    });
 
 
     const backBtn = component.querySelector('button.cancel');
     backBtn.addEventListener('click', (event) => {
+        updateDetailTabInfo(dateInput.value, timeInput.value)
         playAnimation();
-
     });
 
     const playAnimation = function () {
         requestAnimationFrame(()=>{
             component.parentElement.style.transform = `translateX(0%)`;
         });
-        // const removeWrapper = function() {
-        //     body.removeChild(component);
-        // };
+    }
+
+    const playAnimationOnSubmit = function () {
+        requestAnimationFrame(()=>{
+            component.style.transform = `translateY(10%)`;
+            main.style.transform = `scale(1)`;
+            main.style.borderRadius = '0px';
+        });
+        const removeWrapper = function() {
+            const wrapper = component.parentElement.parentElement.children[1];
+            wrapper.remove();
+        };
         
-        // setTimeout(removeWrapper, 300);
+        setTimeout(removeWrapper, 300);
     }
 
     return component;

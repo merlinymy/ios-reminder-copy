@@ -436,6 +436,7 @@ textarea#title:focus, textarea#notes:focus {
 }
 
 textarea#title {
+    border-radius: 0px;
     border-bottom: 1px solid grey;
     height: 5.5dvh;
     padding: 0.75rem 0.25rem 0.75rem 0.25rem;
@@ -674,4 +675,13 @@ div.air-datepicker.-inline- {
 .material-symbols-outlined.selected-icon.check {
     color: royalblue;
     background-color: transparent;
+}
+
+.detail-info > :first-child {
+    font-size: 1.25rem;
+}
+
+.detail-info > :nth-child(2) {
+    font-size: 0.85rem;
+    color: grey;
 }

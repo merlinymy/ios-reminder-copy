@@ -76,7 +76,7 @@ export const mainContenOnScroll = function(event) {
 
 export const updateMyListUI = function () {
     // if no lists stored, hide My Lists h1
-    const storedLists = JSON.parse(localStorage.getItem('lists'));
+    const storedLists = getLists();
     const mylistsH1 = document.querySelector('h1.my-lists');
     const newReminder = document.querySelector('button.new-reminder');
     const listTabsWrap = document.querySelector('div.list-tabs');
@@ -96,6 +96,7 @@ export const updateMyListUI = function () {
 
         listTabsWrap.innerHTML = '';
         // for each item in lists array, create a list tab and append them to 
+        console.log(storedLists);
         storedLists.forEach(json => {
             const ele = JSON.parse(json);
             const aTab = newListTab(ele.color, ele.name, ele.icon, ele.reminders.length);
@@ -155,6 +156,22 @@ export const updateSelectedListUI = function(selectedIdx, selectedList) {
     
     newReminderDiv.removeChild(newReminderDiv.lastChild);
     newReminderDiv.append(newSelectedList);
+}
+
+export const updateDetailTabInfo = function (dateInfo, timeInfo) {
+    const detailTab = document.querySelector('div.detail-info');
+    const detailInfo = document.createElement('p');
+    let content;
+    console.log(timeInfo);
+    if (dateInfo && !timeInfo) {
+        content = `${dateInfo}`;
+    } else if (dateInfo && timeInfo) {
+        content = `${dateInfo} at ${timeInfo}`;
+    }
+    detailInfo.textContent = content;
+
+    detailTab.removeChild(detailTab.lastChild);
+    detailTab.append(detailInfo);
 }
 
 

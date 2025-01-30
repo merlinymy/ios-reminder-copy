@@ -26,7 +26,6 @@ export const listSelectPage = function () {
             event.preventDefault();
             const selectedIdx = [...event.target.parentNode.children].indexOf(event.target);
             const selectedList = JSON.parse(getLists()[selectedIdx]);
-            console.log(selectedList)
             setSelectedList(selectedList);
             updateSelectedListUI(selectedIdx, selectedList);
         })

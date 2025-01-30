@@ -12,17 +12,21 @@ function storeNewList(list) {
     localStorage.setItem('lists', JSON.stringify(listArray));
 }
 
+function updateLists(lists) {
+    localStorage.setItem('lists', JSON.stringify(lists));
+}
+
 function getLists() {
     const result = JSON.parse(localStorage.getItem('lists'));
     return result;
 }
 
 function getSelectedList() {
-    console.log(localStorage.getItem('selectedList'));
     return JSON.parse(localStorage.getItem('selectedList'));
 }
 
 function setSelectedList(list) {
     localStorage.setItem('selectedList', JSON.stringify(list));
 }
-export {createNewList, storeNewList, getLists, setSelectedList, getSelectedList};
+export {createNewList, storeNewList, getLists, setSelectedList, 
+    getSelectedList, updateLists};

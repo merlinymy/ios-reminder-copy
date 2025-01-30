@@ -1,11 +1,13 @@
 import newReminderHtml from './newReminder.html'
 import { newListTab, newReminderListDefault } from './listTab';
-import * as updateUI from '../UiLogic/updateUI';
+import {updateMyListUI} from '../UiLogic/updateUI';
 import { createDetails } from "../components/detailsPage";
 import { setCanAdd, getCanAdd } from '../util';
 import { getLists } from '../applicationLogic/listLogic';
 import { listSelectPage } from './listSelectPage';
 import * as listLogic from '../applicationLogic/listLogic';
+import Reminder from '../Reminder';
+import { createReminder, storeReminder } from '../applicationLogic/reminderLogic';
 
 export const newReminderComponent = (() => {
     const main = document.querySelector('.main');
@@ -90,18 +92,30 @@ export const newReminderComponent = (() => {
 
     doneBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        playAnimation();
-        try {
-            // json object
-            // const newList = createNewList(selectedIcon, selectedColor, newListName);
-            // store in local storage
-            // storeNewList(newList);
-
-            // list tab UI element
-            updateMyListUI();
-        } catch (e) {
-            console.log(e);
+        console.log(reminderTitle);
+        let notes = component.querySelector('textarea#notes').value;
+        const dateInput = document.querySelector('input#date-input');
+        let date;
+        if (dateInput) {
+            date = dateInput.value;
         }
+        const timeInput = document.querySelector('input#time-input');
+        let time;
+        if (timeInput) {
+            time = timeInput.value;
+        }
+        const flag = document.querySelector('input#flag-checkbox').checked;
+        const priority = document.querySelector('select#priority').value;
+        const list = listLogic.getSelectedList();
+        const params = [reminderTitle, notes, date, time, flag
+            , priority, list.name, list._id, false];
+        const reminder = createReminder(params);
+        // console.log(reminder);
+        storeReminder(reminder);
+        updateMyListUI();
+        playAnimation();
+        setCanAdd(false);
+    
         // updateUI();
     });
 
