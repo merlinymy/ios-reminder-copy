@@ -56,7 +56,6 @@ export const newReminderComponent = (() => {
         const firstList = JSON.parse(listLogic.getLists()[0]);
         const defaultList = listLogic.getSelectedList() || firstList;
         listLogic.setSelectedList(defaultList);
-        console.log(firstList);
         selectList.append(newReminderListDefault(defaultList.color, defaultList.name, defaultList.icon))
     }
 
@@ -77,7 +76,6 @@ export const newReminderComponent = (() => {
         });
         const removeWrapper = function() {
             const wrapper = component.parentElement.parentElement.children[1];
-            console.log(wrapper);
             wrapper.remove();
         };
         

@@ -134,8 +134,6 @@ export const updateSelectedListUI = function(selectedIdx, selectedList) {
     const list = document.querySelector('.lists-select-content');
     const check = list.querySelector('.material-symbols-outlined.selected-icon.check');
     check.remove();
-    console.log('IN UPDATE')
-    console.log(list.children)
     const selected = list.children[selectedIdx];
     selected.children[1].append(check);
 
