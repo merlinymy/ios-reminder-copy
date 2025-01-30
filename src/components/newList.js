@@ -1,5 +1,5 @@
 import { iconList, colorList } from "../util";
-import { storeNewList, createNewList } from "../applicationLogic/addNewList";
+import { storeNewList, createNewList } from "../applicationLogic/listLogic";
 import { updateMyListUI } from "../UiLogic/updateUI";
 import { newListTab } from "./listTab";
 export default (function newList() {

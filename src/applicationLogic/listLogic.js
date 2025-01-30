@@ -17,4 +17,12 @@ function getLists() {
     return result;
 }
 
-export {createNewList, storeNewList, getLists};
+function getSelectedList() {
+    console.log(localStorage.getItem('selectedList'));
+    return JSON.parse(localStorage.getItem('selectedList'));
+}
+
+function setSelectedList(list) {
+    localStorage.setItem('selectedList', JSON.stringify(list));
+}
+export {createNewList, storeNewList, getLists, setSelectedList, getSelectedList};

@@ -1,16 +1,35 @@
 import listSelectPageStruct from './listSelectPage.html'
-import { getLists } from '../applicationLogic/addNewList';
+import { getLists, getSelectedList, setSelectedList } from '../applicationLogic/listLogic';
 import { newReminderListSelect } from './listTab';
+import { updateSelectedListUI } from '../UiLogic/updateUI';
+
+
 export const listSelectPage = function () {
     const component = document.createElement('div');
     component.classList.add('list-select-wrap');
     component.innerHTML = listSelectPageStruct;
+    const listSelectContent = component.querySelector('.lists-select-content');
     const storedLists = getLists();
+    const selectedList = getSelectedList();
+
     storedLists.forEach(element => {
         const parsed = JSON.parse(element);
-        console.log(parsed);
-        const tab = newReminderListSelect(parsed.color, parsed.name, parsed.icon);
-        component.append(tab);
+        if (parsed._id === selectedList._id) {
+            listSelectContent.append(newReminderListSelect(parsed.color, parsed.name, parsed.icon, true));
+        } else {
+            listSelectContent.append(newReminderListSelect(parsed.color, parsed.name, parsed.icon));
+        }
+    });
+
+    listSelectContent.childNodes.forEach((child) => {
+        child.addEventListener('click', (event) => {
+            event.preventDefault();
+            const selectedIdx = [...event.target.parentNode.children].indexOf(event.target);
+            const selectedList = JSON.parse(getLists()[selectedIdx]);
+            console.log(selectedList)
+            setSelectedList(selectedList);
+            updateSelectedListUI(selectedIdx, selectedList);
+        })
     });
 
     const backBtn = component.querySelector('button.cancel');

@@ -1,4 +1,5 @@
 import { reminderUI } from "./reminderPage";
+import * as listLogic from '../applicationLogic/listLogic';
 
 const newListTab = function (color, name, icon, length) {
     const component = document.createElement('div');
@@ -65,7 +66,7 @@ const newReminderListDefault = function (color, name, icon) {
     return component;
 }
 
-const newReminderListSelect = function (color, name, icon) {
+const newReminderListSelect = function (color, name, icon, isSelect) {
     const component = document.createElement('div');
     const leftWrap = document.createElement('div');
     const rightWrap = document.createElement('div');
@@ -75,7 +76,9 @@ const newReminderListSelect = function (color, name, icon) {
 
     leftWrap.append(iconSpan, listNameP);
     leftWrap.classList.add('left-wrap');
-    rightWrap.append(selectedIconSpan);
+    if (isSelect) {
+        rightWrap.append(selectedIconSpan);
+    }
 
     component.classList.add('list-card');
     iconSpan.classList.add('material-symbols-outlined', 'list-tab-icon', 'circle');
@@ -83,7 +86,7 @@ const newReminderListSelect = function (color, name, icon) {
     iconSpan.style.backgroundColor = color;
     listNameP.classList.add('list-name');
     listNameP.textContent = name;
-    selectedIconSpan.classList.add('material-symbols-outlined', 'list-tab-icon');
+    selectedIconSpan.classList.add('material-symbols-outlined', 'selected-icon', 'check');
     selectedIconSpan.textContent = 'check';
     component.append(leftWrap, rightWrap);
 

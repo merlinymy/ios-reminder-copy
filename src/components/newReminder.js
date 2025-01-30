@@ -3,8 +3,9 @@ import { newListTab, newReminderListDefault } from './listTab';
 import * as updateUI from '../UiLogic/updateUI';
 import { createDetails } from "../components/detailsPage";
 import { setCanAdd, getCanAdd } from '../util';
-import { getLists } from '../applicationLogic/addNewList';
+import { getLists } from '../applicationLogic/listLogic';
 import { listSelectPage } from './listSelectPage';
+import * as listLogic from '../applicationLogic/listLogic';
 
 export const newReminderComponent = (() => {
     const main = document.querySelector('.main');
@@ -52,8 +53,10 @@ export const newReminderComponent = (() => {
         event.target.style.height = `${event.target.scrollHeight}px`;
     })
     if (storageLists) {
-        const firstList = JSON.parse(JSON.parse(localStorage.getItem('lists'))[0]);
-        const defaultList = localStorage.getItem('last-choice') || firstList;
+        const firstList = JSON.parse(listLogic.getLists()[0]);
+        const defaultList = listLogic.getSelectedList() || firstList;
+        listLogic.setSelectedList(defaultList);
+        console.log(firstList);
         selectList.append(newReminderListDefault(defaultList.color, defaultList.name, defaultList.icon))
     }
 

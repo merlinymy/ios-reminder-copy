@@ -325,16 +325,22 @@ span.new-list {
     overflow: scroll;
 }
 
-.list-tabs > div:first-child {
+.list-tabs {
+    border-radius: 15px;
+    background-color: white;
+    overflow: hidden;
+}
+
+/* .list-tabs > div:first-child {
     border-radius: 10px 10px 0px 0px;
 }
 
 .list-tabs > div:last-child {
     border-radius: 0px 0px 10px 10px;
-}
+} */
 
-.list-tabs > div:not(:last-child) {
-border-bottom: 1px solid grey;}
+.list-tabs > div:not(:first-child) {
+border-top: 1px solid grey;}
 
 .list-card, .list-card>div {
     display: flex;   
@@ -652,4 +658,20 @@ div.air-datepicker.-inline- {
     z-index: -10;
     right: 0dvw;
     opacity: 0;
+}
+.lists-select-content {
+    margin: 0.75rem;
+    /* padding: 0.25rem; */
+    border-radius: 15px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.lists-select-content > div:not(:first-child) {
+    border-top: 1px solid grey;
+}
+
+.material-symbols-outlined.selected-icon.check {
+    color: royalblue;
+    background-color: transparent;
 }

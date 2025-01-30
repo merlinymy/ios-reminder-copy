@@ -1,9 +1,9 @@
-import { newListTab } from "../components/listTab";
+import { newListTab, newReminderListDefault } from "../components/listTab";
 import newList from "../components/newList";
 import { reminderUI } from "../components/reminderPage";
 import { newReminderComponent } from "../components/newReminder";
 import { createDetails } from "../components/detailsPage";
-import { getLists } from "../applicationLogic/addNewList";
+import { getLists } from "../applicationLogic/listLogic";
 import { listSelectPage } from "../components/listSelectPage";
 
 const newListBtn = document.querySelector("button.add-list");
@@ -128,6 +128,35 @@ export const newReminderCard = function() {
         main.children[0].style.borderRadius = '10px'
         main.style.transform = `scale(0.98)`;
     });
+}
+
+export const updateSelectedListUI = function(selectedIdx, selectedList) {
+    const list = document.querySelector('.lists-select-content');
+    const check = list.querySelector('.material-symbols-outlined.selected-icon.check');
+    check.remove();
+    console.log('IN UPDATE')
+    console.log(list.children)
+    const selected = list.children[selectedIdx];
+    selected.children[1].append(check);
+
+    const newReminderDiv = document.querySelector('.new-reminder-div');
+    const selectList = newReminderDiv.querySelector('.select-list');
+    if (selectList) {
+        selectList.remove();
+    }
+    const newSelectedList = newReminderListDefault(selectedList.color, selectedList.name, selectedList.icon);
+    newSelectedList.addEventListener('click', () => {
+        const listSelectWrap = document.querySelector('.list-select-wrap');
+        const component = document.querySelector('.new-reminder-div');
+        requestAnimationFrame(() => {
+            listSelectWrap.style.zIndex = '12';
+            listSelectWrap.style.opacity = '1';
+            component.parentElement.style.transform = `translateX(-50%)`;  
+        });
+    });
+    
+    newReminderDiv.removeChild(newReminderDiv.lastChild);
+    newReminderDiv.append(newSelectedList);
 }
 
 
