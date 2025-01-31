@@ -1,5 +1,4 @@
-import { reminderUI } from "./reminderPage";
-import * as listLogic from '../applicationLogic/listLogic';
+import { buildReminderPage } from "../UiLogic/updateUI";
 
 const newListTab = function (color, name, icon, length) {
     const component = document.createElement('div');
@@ -30,9 +29,7 @@ const newListTab = function (color, name, icon, length) {
     // , drag to rearange, left click and tap to open
     component.addEventListener('click', (event) => {
         const idx = [...event.target.parentNode.children].indexOf(event.target);
-        // console.log([...event.target.parentNode.children].indexOf(event.target));
-        // generateReminders(idx);
-        reminderUI(idx);
+        buildReminderPage(idx);
     }) 
 
     return component;

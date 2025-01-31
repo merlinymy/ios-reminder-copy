@@ -1,10 +1,10 @@
 import { newListTab, newReminderListDefault } from "../components/listTab";
 import newList from "../components/newList";
-import { reminderUI } from "../components/reminderPage";
 import { newReminderComponent } from "../components/newReminder";
 import { createDetails } from "../components/detailsPage";
 import { getLists } from "../applicationLogic/listLogic";
 import { listSelectPage } from "../components/listSelectPage";
+import { reminderPage} from "../components/reminderPage";
 
 const newListBtn = document.querySelector("button.add-list");
 const newReminderBtn = document.querySelector("button.new-reminder");
@@ -96,7 +96,6 @@ export const updateMyListUI = function () {
 
         listTabsWrap.innerHTML = '';
         // for each item in lists array, create a list tab and append them to 
-        console.log(storedLists);
         storedLists.forEach(json => {
             const ele = JSON.parse(json);
             const aTab = newListTab(ele.color, ele.name, ele.icon, ele.reminders.length);
@@ -172,6 +171,26 @@ export const updateDetailTabInfo = function (dateInfo, timeInfo) {
 
     detailTab.removeChild(detailTab.lastChild);
     detailTab.append(detailInfo);
+}
+
+export const buildReminderPage = function(idx) {
+    const component = reminderPage(idx);
+    body.append(component);
+    requestAnimationFrame(() => {
+        main.style.transform = 'translateX(-50%)';
+        component.style.transform = 'translateX(-100%)';
+    })
+}
+
+export const removeReminderPage = function() {
+    const component = document.querySelector('.reminder-page');
+    requestAnimationFrame(() => {
+        main.style.transform = 'translateX(0%)';
+        component.style.transform = 'translateX(0%)';
+    })
+    setTimeout(()=> {
+        body.removeChild(body.lastChild);
+    }, 300);
 }
 
 
