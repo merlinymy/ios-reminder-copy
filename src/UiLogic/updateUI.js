@@ -196,5 +196,9 @@ export const removeReminderPage = function() {
     }, 300);
 }
 
+export const openEditor = function(reminder) {
+    // reuse new reminder template
+}
+
 
 

@@ -2,6 +2,7 @@ import reminderStruct from './reminderPage.html';
 import {removeReminderPage, updateMyListUI} from '../UiLogic/updateUI';
 import { getLists } from '../applicationLogic/listLogic';
 import { updateReminder } from '../applicationLogic/reminderLogic';
+import { openEditor } from '../UiLogic/updateUI';
 
 export const reminderPage = function(idx) {
     const component = document.createElement('div');
@@ -71,27 +72,48 @@ const reminderCard = function(reminder) {
     titleWrap.append(title);
     reminderInfo.append(titleWrap);
 
+    let newTitle;
+
     title.addEventListener('input', (event) => {
+        newTitle = event.target.value;
         event.target.style.height = '';
         event.target.style.height = `${event.target.scrollHeight + 1}px`;
     });
 
-    if (reminder.notes) {
-        const notes = document.createElement('textarea');
-        // notes.setAttribute('type', 'text');
-        notes.classList.add('reminder-notes');
-        notes.value = reminder.notes;
-        reminderInfo.append(notes);
+    title.addEventListener('focusout', (event) => {
+        reminder.title = newTitle || reminder.title;
+        updateReminder(reminder);
+    });
 
-        notes.addEventListener('input', (event) => {
-            event.target.style.height = '';
-            event.target.style.height = `${event.target.scrollHeight + 1}px`;    
-        });
+    let newNotes = '';
+
+    // if (reminder.notes) {
+    const notes = document.createElement('textarea');
+    // notes.setAttribute('type', 'text');
+    notes.classList.add('reminder-notes');
+    notes.value = reminder.notes;
+    reminderInfo.append(notes);
+
+    notes.addEventListener('input', (event) => {
+        newNotes = event.target.value;
+        event.target.style.height = '';
+        event.target.style.height = `${event.target.scrollHeight + 1}px`;    
+    });
+    notes.addEventListener('focusout', (event) => {
+        reminder.notes = newNotes;        
+        updateReminder(reminder);
+    });
+
+    if (!reminder.notes) {
+        notes.placeholder = 'Add Notes';
+        notes.classList.add('hidden');
     }
+
+    // }
 
     if (reminder.flag) {
         const flagSpan = document.createElement('span');
-        flagSpan.classList.add('material-symbols-outlined');
+        flagSpan.classList.add('material-symbols-outlined', 'flag-icon');
         flagSpan.textContent = 'flag_2';
         titleWrap.append(flagSpan);
     }
@@ -124,13 +146,25 @@ const reminderCard = function(reminder) {
         reminderInfo.append(time);
     }
 
+    const editBtn = document.createElement('span');
+    editBtn.className = 'material-symbols-outlined reminder-edit-btn';
+    editBtn.textContent = 'info';
+    titleWrap.append(editBtn);
+
+    editBtn.addEventListener('click', openEditor(reminder));
+
     reminderInfo.addEventListener('click', (event) => {
         event.preventDefault();
-        console.log(event.target)
+        editBtn.style.display = 'block';
+        const doneBtn = document.querySelector('.reminder-page button.done');
+        doneBtn.style.display = 'block';
+        doneBtn.addEventListener('click', () => {
+            // close page
+        });
         if (event.target.className !== 'reminder-notes' ) {
             title.focus();
+            notes.classList.remove('hidden');
         }
-        
     })
 
     return cardWrap;

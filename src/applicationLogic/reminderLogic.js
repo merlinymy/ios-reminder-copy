@@ -25,7 +25,6 @@ export function updateReminder(reminder) {
             list.reminders.forEach((item) => {
                 if (item._id === reminder._id) {
                     Object.assign(item, reminder);
-                    
                 }
             })
         }
