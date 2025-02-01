@@ -98,7 +98,10 @@ export const updateMyListUI = function () {
         // for each item in lists array, create a list tab and append them to 
         storedLists.forEach(json => {
             const ele = JSON.parse(json);
-            const aTab = newListTab(ele.color, ele.name, ele.icon, ele.reminders.length);
+            const aTab = newListTab(ele.color, ele.name, ele.icon, ele.reminders
+                .filter((reminder) => {
+                    return reminder.isComplete === false;
+            }).length);
             
             listTabsWrap.append(aTab);
         });

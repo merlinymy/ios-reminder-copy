@@ -16,3 +16,20 @@ export function storeReminder(reminder) {
     updateLists(serialized);
     // console.log(lists);
 } 
+
+export function updateReminder(reminder) {
+    
+    const lists = getLists().map((ele) => JSON.parse(ele))
+    lists.forEach(list => {
+        if (list._id === reminder.listId) {
+            list.reminders.forEach((item) => {
+                if (item._id === reminder._id) {
+                    Object.assign(item, reminder);
+                    
+                }
+            })
+        }
+    });
+    const serialized = lists.map((ele) => JSON.stringify(ele));
+    updateLists(serialized);
+}

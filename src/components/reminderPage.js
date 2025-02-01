@@ -1,6 +1,7 @@
 import reminderStruct from './reminderPage.html';
-import {removeReminderPage} from '../UiLogic/updateUI';
+import {removeReminderPage, updateMyListUI} from '../UiLogic/updateUI';
 import { getLists } from '../applicationLogic/listLogic';
+import { updateReminder } from '../applicationLogic/reminderLogic';
 
 export const reminderPage = function(idx) {
     const component = document.createElement('div');
@@ -9,7 +10,9 @@ export const reminderPage = function(idx) {
 
     const reminderContent = component.querySelector('.reminder-content');
     const reminders = JSON.parse(getLists()[idx]).reminders; // json
-    reminders.forEach((reminder) => {
+    reminders.filter((reminder) => {
+        return reminder.isComplete === false;
+    }).forEach((reminder) => {
         const newReminderCard = reminderCard(reminder);
         reminderContent.append(newReminderCard)
     })
@@ -35,6 +38,23 @@ const reminderCard = function(reminder) {
     const checkBoxInner = document.createElement('span');
     checkBoxInner.classList.add('check-box-inner');
     checkBoxCustomize.append(checkBox, checkBoxInner);
+    let completeReminder;
+
+    checkBox.addEventListener('change', (event) => {        
+        const wrapperEle = event.target.parentElement.parentElement;
+        if (checkBox.checked) {
+            completeReminder = setTimeout(() => {
+                reminder.isComplete = true;
+                updateReminder(reminder);
+                wrapperEle.style.visibility = 'hidden';
+                updateMyListUI();
+            }, 3000);
+        } else {
+            clearTimeout(completeReminder);
+            reminder.isComplete = false;
+            console.log(reminder)
+        }
+    })
 
     const reminderInfo = document.createElement('div');
     reminderInfo.classList.add('reminder-info-wrap');
@@ -103,8 +123,19 @@ const reminderCard = function(reminder) {
         time.textContent = reminder.time;
         reminderInfo.append(time);
     }
+
+    reminderInfo.addEventListener('click', (event) => {
+        event.preventDefault();
+        console.log(event.target)
+        if (event.target.className !== 'reminder-notes' ) {
+            title.focus();
+        }
+        
+    })
+
     return cardWrap;
 }
+
 
 const lowPriority = function () {
     return exclamation(1);
