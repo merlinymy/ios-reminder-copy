@@ -222,7 +222,7 @@ span.today {
     font-weight:560;
 }
 
-.list-wrap, .new-reminder-div, .details-wrap {
+.list-wrap, .new-reminder-div, .details-wrap, .edit-reminder-page {
     position: relative;
     background-color: var(--background0);
     z-index: 10;
@@ -387,7 +387,7 @@ border-top: 1px solid grey;}
     backdrop-filter: blur(10px);
 }
 
-.new-reminder-div {
+.new-reminder-div, .edit-reminder-page {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -409,6 +409,14 @@ border-top: 1px solid grey;}
     padding: 0rem 0.75rem;
     background-color: white;
     border-radius: 9px;
+}
+.edit-reminder-page > .input-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 0.75rem;
+    background-color: white;
+    border-radius: 9px;
+    margin: 0rem 0.75rem;
 }
 
 .reminder-details-tab {
@@ -813,12 +821,15 @@ input:checked + .check-box-inner {
 }
 
 .reminder-edit-btn {
-    margin-left: 0.15rem;
+    margin-left: auto;
     color: royalblue;
-    display: none;
 }
 
 .flag-icon {
     color: rgb(255, 175, 55);
     margin-left: auto;
+}
+
+.block {
+    display: block;
 }

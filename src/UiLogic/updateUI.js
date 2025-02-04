@@ -4,7 +4,8 @@ import { newReminderComponent } from "../components/newReminder";
 import { createDetails } from "../components/detailsPage";
 import { getLists } from "../applicationLogic/listLogic";
 import { listSelectPage } from "../components/listSelectPage";
-import { reminderPage} from "../components/reminderPage";
+import { reminderCard, reminderPage} from "../components/reminderPage";
+import { editReminderPage } from "../components/editReminder";
 
 const newListBtn = document.querySelector("button.add-list");
 const newReminderBtn = document.querySelector("button.new-reminder");
@@ -185,6 +186,18 @@ export const buildReminderPage = function(idx) {
     })
 }
 
+export const updateReminderPage = function(idx) {
+    const reminderContent = document.querySelector('.reminder-content');
+    reminderContent.innerHTML = '';
+    const reminders = JSON.parse(getLists()[idx]).reminders; // json
+    reminders.filter((reminder) => {
+        return reminder.isComplete === false;
+    }).forEach((reminder) => {
+        const newReminderCard = reminderCard(reminder, idx);
+        reminderContent.append(newReminderCard)
+    })
+}
+
 export const removeReminderPage = function() {
     const component = document.querySelector('.reminder-page');
     requestAnimationFrame(() => {
@@ -196,8 +209,19 @@ export const removeReminderPage = function() {
     }, 300);
 }
 
-export const openEditor = function(reminder) {
-    // reuse new reminder template
+export const openEditor = function(reminder, idx) {
+    const editReminder = editReminderPage(reminder, idx);
+    const reminderPage = document.querySelector('.reminder-page');
+    const main = document.querySelector('.main');
+    body.append(editReminder);
+
+    requestAnimationFrame(() => {
+        main.style.transform = 'scale(0.1)'
+        reminderPage.style.transform = 'scale(0.98) translateX(-102%)';
+        reminderPage.style.borderRadius = '9px'
+        editReminder.style.height = `98dvh`;
+        editReminder.style.transform = `translateY(-98%)`; 
+    })
 }
 
 

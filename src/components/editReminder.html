@@ -1,0 +1,70 @@
+<div class="top-tool space-between">
+    <button class="cancel">Cancel</button>
+    <span>Details</span>
+    <button class="done">Update</button>
+</div>
+<div class="input-group">
+    <textarea type="text" name="title" id="title" placeholder="Title"></textarea>
+    <textarea type="text" name="notes" id="notes" placeholder="Notes"></textarea>
+</div>
+<div class="details-content">
+    <div class="date-and-time">
+        <div class="date">
+            <span  class="material-symbols-outlined">
+                calendar_month
+            </span>
+            <div class="name-and-toggle">
+                <div class="date-info">
+                    <p>Date</p>
+                </div>
+                <!-- Rounded switch -->
+                 <!-- code from w3 -->
+                <label class="switch">
+                    <input type="checkbox" id="date-checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="time">
+            <span  class="material-symbols-outlined">
+                schedule
+            </span>
+            <div class="name-and-toggle">
+                <div class="time-info">
+                    <p>Time</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="time-checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="flag">
+        <span class="material-symbols-outlined">
+            flag_2
+        </span>
+        <div class="name-and-toggle">
+            <p>Flag</p>
+            <label class="switch">
+                <input type="checkbox" id="flag-checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+    <div class="priority">
+        <span  class="material-symbols-outlined">
+            exclamation
+        </span>
+        <div class="name-and-toggle">
+            <p>Priority</p>
+            <select name="priority" id="priority">
+                <option value="">None</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+    </div>
+</div>
+

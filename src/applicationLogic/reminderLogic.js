@@ -17,6 +17,15 @@ export function storeReminder(reminder) {
     // console.log(lists);
 } 
 
+export function storeReminderByListIdx(reminder, idx) {
+    const list = getLists();
+    const parsedList = list.map((ele) => JSON.parse(ele));
+    console.log(parsedList)
+    parsedList[idx].reminders.push(reminder);
+    const serialized = parsedList.map((ele) => JSON.stringify(ele));
+    updateLists(serialized);
+}
+
 export function updateReminder(reminder) {
     
     const lists = getLists().map((ele) => JSON.parse(ele))
