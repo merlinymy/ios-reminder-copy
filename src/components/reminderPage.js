@@ -113,22 +113,30 @@ export const reminderCard = function(reminder, idx) {
     checkBoxCustomize.classList.add('round-check');
     const checkBoxInner = document.createElement('span');
     checkBoxInner.classList.add('check-box-inner');
+    if (reminder.isComplete) {
+        checkBox.checked = true;
+    }
     checkBoxCustomize.append(checkBox, checkBoxInner);
+
     let completeReminder;
 
     checkBox.addEventListener('change', (event) => {        
         const wrapperEle = event.target.parentElement.parentElement;
         if (checkBox.checked) {
-            completeReminder = setTimeout(() => {
+            // completeReminder = setTimeout(() => {
                 reminder.isComplete = true;
                 updateReminder(reminder);
                 wrapperEle.style.display = 'none';
                 updateMyListUI();
                 updateOrganizeCount();
-            }, 3000);
+            // }, 3000);
         } else {
-            clearTimeout(completeReminder);
+            // clearTimeout(completeReminder);
             reminder.isComplete = false;
+            updateReminder(reminder);
+            wrapperEle.style.display = 'none';
+            updateMyListUI();
+            updateOrganizeCount();
         }
     })
 
