@@ -186,6 +186,48 @@ export const buildReminderPage = function(idx) {
     })
 }
 
+export const updateOrganizeCount = function() {
+    const scheduled = getLists().map((ele) => JSON.parse(ele))
+        .reduce((prev, curr) => {
+        prev = prev.concat(curr.reminders.filter((rem)=> rem.date));
+        return prev;
+    },[]).filter((reminder) => {
+        return reminder.isComplete === false;
+    });
+
+    const flagged = getLists().map((ele) => JSON.parse(ele))
+    .reduce((prev, curr) => {
+        prev = prev.concat(curr.reminders.filter((rem)=> rem.flag));
+        return prev;
+    },[]).filter((reminder) => {
+        return reminder.isComplete === false;
+    });
+
+    const completed = getLists().map((ele) => JSON.parse(ele))
+        .reduce((prev, curr) => {
+        prev = prev.concat(curr.reminders.filter((rem)=> rem.isComplete));
+        return prev;
+    },[]);
+
+    const all = getLists().map((ele) => JSON.parse(ele))
+        .reduce((prev, curr) => {
+        prev = prev.concat(curr.reminders);
+        return prev;
+    },[]).filter((reminder) => {
+        return reminder.isComplete === false;
+    });
+
+    const scheduledCount = document.querySelector('.card.scheduled .item-count');
+    const allCount = document.querySelector('.card.all .item-count');
+    const flaggedCount = document.querySelector('.card.flagged .item-count');
+    const completedCount = document.querySelector('.card.completed .item-count');
+
+    scheduledCount.textContent = scheduled.length;
+    allCount.textContent = all.length;
+    flaggedCount.textContent = flagged.length;
+    completedCount.textContent = completed.length;
+}
+
 export const updateReminderPage = function(idx) {
     const reminderContent = document.querySelector('.reminder-content');
     reminderContent.innerHTML = '';

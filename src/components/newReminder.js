@@ -1,6 +1,6 @@
 import newReminderHtml from './newReminder.html'
 import { newListTab, newReminderListDefault } from './listTab';
-import {updateMyListUI} from '../UiLogic/updateUI';
+import {updateMyListUI, updateOrganizeCount} from '../UiLogic/updateUI';
 import { createDetails } from "../components/detailsPage";
 import { setCanAdd, getCanAdd } from '../util';
 import { getLists } from '../applicationLogic/listLogic';
@@ -113,6 +113,7 @@ export const newReminderComponent = (() => {
         // console.log(reminder);
         storeReminder(reminder);
         updateMyListUI();
+        updateOrganizeCount();
         playAnimation();
         setCanAdd(false);
     

@@ -1,7 +1,7 @@
 import reminderStruct from './reminderPage.html';
-import {newReminderCard, removeReminderPage, updateMyListUI, updateReminderPage} from '../UiLogic/updateUI';
+import {newReminderCard, removeReminderPage, updateMyListUI, updateOrganizeCount, updateReminderPage} from '../UiLogic/updateUI';
 import { getLists } from '../applicationLogic/listLogic';
-import { storeReminder, storeReminderByListIdx, updateReminder } from '../applicationLogic/reminderLogic';
+import { deleteReminder, storeReminder, storeReminderByListIdx, updateReminder } from '../applicationLogic/reminderLogic';
 import { openEditor } from '../UiLogic/updateUI';
 import { newReminderComponent } from './newReminder';
 import Reminder from '../Reminder';
@@ -12,13 +12,59 @@ export const reminderPage = function(idx) {
     component.innerHTML = reminderStruct;
 
     const reminderContent = component.querySelector('.reminder-content');
-    const reminders = JSON.parse(getLists()[idx]).reminders; // json
-    reminders.filter((reminder) => {
-        return reminder.isComplete === false;
-    }).forEach((reminder) => {
-        const newReminderCard = reminderCard(reminder, idx);
-        reminderContent.append(newReminderCard)
-    })
+    let reminders;
+    switch (idx) {
+        case 'scheduled':
+            reminders = getLists().map((ele) => JSON.parse(ele))
+                            .reduce((prev, curr) => {
+                            prev = prev.concat(curr.reminders.filter((rem)=> rem.date));
+                            return prev;
+            },[]);
+
+            break;
+        case 'flagged':
+            reminders = getLists().map((ele) => JSON.parse(ele))
+                            .reduce((prev, curr) => {
+                                prev = prev.concat(curr.reminders.filter((rem)=> rem.flag));
+                                return prev;
+                            },[]);
+            break;
+        case 'completed':
+            reminders = getLists().map((ele) => JSON.parse(ele))
+                            .reduce((prev, curr) => {
+                            prev = prev.concat(curr.reminders.filter((rem)=> rem.isComplete));
+                            return prev;
+                        },[]);
+            break;
+        case 'all':
+            reminders = getLists().map((ele) => JSON.parse(ele))
+                            .reduce((prev, curr) => {
+                            prev = prev.concat(curr.reminders);
+                            return prev;
+                        },[]);
+            break;
+        default:
+            reminders = JSON.parse(getLists()[idx]).reminders.filter((reminder) => {
+                return reminder.isComplete === false;
+            });
+    }
+
+    reminders.forEach((reminder) => {
+                const newReminderCard = reminderCard(reminder, idx);
+                reminderContent.append(newReminderCard) });
+        
+    // if (idx !== null || idx !== undefined) {
+    //     reminders = JSON.parse(getLists()[idx]).reminders; // json
+    //     reminders.filter((reminder) => {
+    //         return reminder.isComplete === false;
+    //     }).forEach((reminder) => {
+    //         const newReminderCard = reminderCard(reminder, idx);
+    //         reminderContent.append(newReminderCard)
+    //     })
+    // } else {
+
+    // }
+
 
     const doneBtn = component.querySelector('.done');
     doneBtn.style.display = 'block';
@@ -43,7 +89,16 @@ export const reminderPage = function(idx) {
         reminderContent.append(newReminderCard);
         const titleInput = newReminderCard.querySelector('.reminder-title');
         titleInput.click();
+        titleInput.addEventListener('focusout', (event) => {
+            if (!event.target.value) {
+                reminderContent.removeChild(reminderContent.lastChild);
+                deleteReminder(newReminder);
+                updateMyListUI();
+                updateOrganizeCount();
+            }
+        })
         updateMyListUI();
+        updateOrganizeCount();
     })
     return component;
 }
@@ -69,11 +124,11 @@ export const reminderCard = function(reminder, idx) {
                 updateReminder(reminder);
                 wrapperEle.style.display = 'none';
                 updateMyListUI();
+                updateOrganizeCount();
             }, 3000);
         } else {
             clearTimeout(completeReminder);
             reminder.isComplete = false;
-            console.log(reminder)
         }
     })
 

@@ -3,7 +3,7 @@ import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
 import localeEn from 'air-datepicker/locale/en';
 import { deleteReminder, updateReminder } from '../applicationLogic/reminderLogic';
-import { closeEditor, updateMyListUI, updateReminderPage } from '../UiLogic/updateUI';
+import { closeEditor, updateMyListUI, updateOrganizeCount, updateReminderPage } from '../UiLogic/updateUI';
 
 export const editReminderPage = function(reminder, idx) {
     const reminderPage = document.querySelector('.reminder-page');
@@ -136,6 +136,7 @@ export const editReminderPage = function(reminder, idx) {
         reminder.priority = prioritySelect.value;
         updateReminder(reminder);
         updateReminderPage(idx);
+        updateOrganizeCount();
         playAnimation();
     });
 
