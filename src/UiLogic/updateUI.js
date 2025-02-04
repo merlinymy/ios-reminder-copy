@@ -17,13 +17,8 @@ const listsDiv = document.querySelector('.lists');
 const searchBox = document.querySelector('.search');
 const topTool = document.querySelector('.top-tool');
 const btmTool = document.querySelector('.bottom-tool');
-const topToolBtm = topTool.getBoundingClientRect().bottom;
-let mainContentTop = mainContent.getBoundingClientRect().top;
 let listsDivBtm;
 const btmToolTop = btmTool.getBoundingClientRect().top;
-const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
-const searchInput = document.querySelector('input.search-input'); 
-const searchIcon = document.querySelector('span.search');
 
 export const newListCard = function(event) {
     
@@ -46,34 +41,34 @@ export const checkBtmToolBorder = function () {
     }
 }
 
-export const mainContenOnScroll = function(event) {
-    const topToolBtm = topTool.getBoundingClientRect().bottom;
-    const orgDivTop = organizeDiv.getBoundingClientRect().top;
-    const listsDivBtm = listsDiv.getBoundingClientRect().bottom;
-    const btmToolTop = btmTool.getBoundingClientRect().top;
-    const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
-    event.preventDefault();
-    if (orgDivTop< searchBoxBtm) {
-        // first resize the search icon
-        searchIcon.style.fontSize = `calc(3dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
-        // then set input placehold style to transparent
-        searchInput.style.fontSize = `calc(2dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
-        // finally shrink the search box
-        searchInput.style.height = `calc(4dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
-        const searchBoxHeightOriginal = searchBox.style.height;
-        searchBox.classList.add('bottom-border', 'white-bg');
-        topTool.classList.add('white-bg');
-    } else {
-        searchBox.classList.remove('bottom-border', 'white-bg');
-        topTool.classList.remove('white-bg');
+// export const mainContenOnScroll = function(event) {
+//     const topToolBtm = topTool.getBoundingClientRect().bottom;
+//     const orgDivTop = organizeDiv.getBoundingClientRect().top;
+//     const listsDivBtm = listsDiv.getBoundingClientRect().bottom;
+//     const btmToolTop = btmTool.getBoundingClientRect().top;
+//     const searchBoxBtm = searchBox.getBoundingClientRect().bottom;
+//     event.preventDefault();
+//     if (orgDivTop< searchBoxBtm) {
+//         // first resize the search icon
+//         searchIcon.style.fontSize = `calc(3dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
+//         // then set input placehold style to transparent
+//         searchInput.style.fontSize = `calc(2dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
+//         // finally shrink the search box
+//         searchInput.style.height = `calc(4dvh - ${Math.abs(searchBoxBtm-orgDivTop)}px)`;
+//         const searchBoxHeightOriginal = searchBox.style.height;
+//         searchBox.classList.add('bottom-border', 'white-bg');
+//         topTool.classList.add('white-bg');
+//     } else {
+//         searchBox.classList.remove('bottom-border', 'white-bg');
+//         topTool.classList.remove('white-bg');
 
-    }
-    if (listsDivBtm > btmToolTop) {
-        btmTool.classList.add('top-border', 'white-bg');
-    } else {
-        btmTool.classList.remove('top-border', 'white-bg');
-    }
-}
+//     }
+//     if (listsDivBtm > btmToolTop) {
+//         btmTool.classList.add('top-border', 'white-bg');
+//     } else {
+//         btmTool.classList.remove('top-border', 'white-bg');
+//     }
+// }
 
 export const updateMyListUI = function () {
     // if no lists stored, hide My Lists h1

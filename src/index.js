@@ -36,9 +36,9 @@ newReminderBtn.addEventListener('click', (event) => {
     updateUI.newReminderCard();
 });
 
-mainContent.addEventListener('scroll', (event)=>{
-    updateUI.mainContenOnScroll(event);
-});
+// mainContent.addEventListener('scroll', (event)=>{
+//     updateUI.mainContenOnScroll(event);
+// });
 
 updateUI.updateMyListUI();
 updateUI.checkBtmToolBorder();
