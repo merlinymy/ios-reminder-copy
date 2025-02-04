@@ -334,6 +334,7 @@ span.big-icon {
     border: none;
     border-radius: 10px;
     margin-top: 1rem;
+    width: 100%;
 }
 
 .big-icon {
