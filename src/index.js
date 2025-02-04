@@ -26,7 +26,7 @@ menu.addEventListener('click', (event) => {
         menu.style.color = 'grey';
     })
 
-    window.addEventListener('click', ()=> {
+    socialDiv.addEventListener('click', ()=> {
         requestAnimationFrame(() => {
             links.style.transform = 'scale(0)';
             // links.style.bottom = '0%';
