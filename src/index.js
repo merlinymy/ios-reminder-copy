@@ -21,8 +21,9 @@ menu.addEventListener('click', (event) => {
     const links = socialDiv.childNodes[0];
     topTool.append(socialDiv);
     requestAnimationFrame(() => {
-        links.style.transform = 'scale(1)';
-        // links.style.top = '0%';
+        links.style.transform = 'scale(1) translate(-100%, 50%)';
+        links.style.top = '0%';
+        links.style.right = '-100%';
         menu.style.color = 'grey';
     })
 
