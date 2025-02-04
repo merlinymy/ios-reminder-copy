@@ -5,10 +5,26 @@
 
 }
 
+@font-face {
+    font-family: 'sf-pro-round-bold';
+    src: url('./assets/font/SF-Pro-Rounded-Bold.otf');
+}
+
+@font-face {
+    font-family: 'sf-pro-round-regular';
+    src: url('./assets/font/SF-Pro-Rounded-Regular.otf');
+}
+
+@font-face {
+    font-family: 'sf-pro-round-semibold';
+    src: url('./assets/font/SF-Pro-Rounded-Semibold.otf');
+}
+
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'sf-pro-round-regular';
     /* border: 1px solid red; */
 }
 
@@ -32,6 +48,12 @@ button {
 .hidden {
     display: none;
 }
+
+.card_name {
+    color: grey;
+    font-family: 'sf-pro-round-semibold';
+}
+
 
 .main {
     position: relative;
@@ -169,7 +191,7 @@ span.today {
 
 .item-count {
     display: inline;
-    font-family: monospace;
+    font-family: 'sf-pro-round-bold';
     font-weight: bold;
     font-size: 5dvh;
     align-self: flex-start;
