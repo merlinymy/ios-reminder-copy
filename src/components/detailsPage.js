@@ -3,7 +3,7 @@ import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
 import localeEn from 'air-datepicker/locale/en';
 import { getCanAdd, setCanAdd } from '../util';
-import { updateDetailTabInfo } from '../UiLogic/updateUI';
+import { updateDetailTabInfo, updateOrganizeCount } from '../UiLogic/updateUI';
 import * as listLogic from '../applicationLogic/listLogic';
 import { createReminder, storeReminder } from '../applicationLogic/reminderLogic';
 import {updateMyListUI} from '../UiLogic/updateUI';
@@ -128,6 +128,7 @@ export const createDetails = function() {
         // console.log(reminder);
         storeReminder(reminder);
         updateMyListUI();
+        updateOrganizeCount();
         playAnimationOnSubmit();
         setCanAdd(false);
 
