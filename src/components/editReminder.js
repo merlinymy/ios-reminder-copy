@@ -2,8 +2,8 @@ import editReminderHtml from './editReminder.html'
 import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
 import localeEn from 'air-datepicker/locale/en';
-import { updateReminder } from '../applicationLogic/reminderLogic';
-import { closeEditor, updateReminderPage } from '../UiLogic/updateUI';
+import { deleteReminder, updateReminder } from '../applicationLogic/reminderLogic';
+import { closeEditor, updateMyListUI, updateReminderPage } from '../UiLogic/updateUI';
 
 export const editReminderPage = function(reminder, idx) {
     const reminderPage = document.querySelector('.reminder-page');
@@ -138,6 +138,15 @@ export const editReminderPage = function(reminder, idx) {
         updateReminderPage(idx);
         playAnimation();
     });
+
+    const deleteBtn = component.querySelector('button.delete');
+    deleteBtn.addEventListener('click', () => {
+        deleteReminder(reminder);
+        updateReminder(reminder);
+        updateReminderPage(idx);
+        updateMyListUI();
+        playAnimation();
+    })
 
     const playAnimation = function () {
         const reminderPage = document.querySelector('.reminder-page');

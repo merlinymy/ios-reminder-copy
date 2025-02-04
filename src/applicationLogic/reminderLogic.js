@@ -1,5 +1,20 @@
 import Reminder from "../Reminder";
 import { getLists, updateLists } from "./listLogic";
+
+export function deleteReminder(reminder) {
+    const list = getLists();
+    const parsedList = list.map((ele) => JSON.parse(ele));
+    parsedList.forEach(element => {
+        if (element._id === reminder.listId) {
+            element.reminders = element.reminders.filter((rem)=> {
+                return rem._id !== reminder._id; 
+            });
+        }
+    });
+    const serialized = parsedList.map((ele) => JSON.stringify(ele));
+    updateLists(serialized);
+}
+
 export function createReminder(params) {
     return new Reminder(...params);
 }

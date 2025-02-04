@@ -51,7 +51,6 @@ export const reminderPage = function(idx) {
 export const reminderCard = function(reminder, idx) {
     const cardWrap = document.createElement('div');
     cardWrap.classList.add('reminder-card-wrap');
-
     const checkBox = document.createElement('input');
     checkBox.id = 'is-reminder-complete';
     checkBox.setAttribute('type', 'checkbox');

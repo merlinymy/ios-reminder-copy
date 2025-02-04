@@ -833,3 +833,11 @@ input:checked + .check-box-inner {
 .block {
     display: block;
 }
+
+button.delete {
+    background-color: red;
+    width: 100%;
+    color: white;
+    border-radius: 9px;
+    padding: 0.65rem 0rem;
+}
