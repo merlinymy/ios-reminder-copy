@@ -14,3 +14,6 @@ This project was built to:
 - LocalStorage API – Persistent data storage
 - Event Listeners & AnimationFrame – Ensures smooth interactions
 - Modules (ES6) – Organized and maintainable code
+
+# live demo
+https://merlinymy.github.io/ios-reminder-copy/
